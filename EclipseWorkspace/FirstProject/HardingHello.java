@@ -14,7 +14,7 @@ public class HardingHello {
 		// TODO Auto-generated method stub
 		// Print hello
 		// Edited to demonstrate successful install
-		System.out.print("Hello " + "World");
+		System.out.print("Hello " + "Elaine");
 
 	}
 }
