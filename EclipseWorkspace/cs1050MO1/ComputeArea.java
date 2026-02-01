@@ -28,7 +28,7 @@ public class ComputeArea
 
 		// Compute area, order of operations, operator
 		// Automatic casting: int to double
-		area = radius % radius * 3.14159;
+		area = radius * radius * 3.14159;
 
 		// Display results
 		System.out.println(
