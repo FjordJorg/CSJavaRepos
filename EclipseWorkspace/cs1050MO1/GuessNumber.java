@@ -4,6 +4,9 @@
  * random number generated. Add comments to explain the code.
  */
 
+//Predefined Scanner Class
+//Used to import the class 'scanner' for keyboard input
+//Create an object from that class
 import java.util.Scanner;
 
 //Class name starts with capital letter and follows CamelCase
@@ -12,6 +15,7 @@ public class GuessNumber
 	// Main method
 	public static void main(String[] args)
 	{
+		Scanner input = new Scanner(System.in);
 		// Declaring and assigning a constant
 		final int RANDOM_MULTIPLIER = 100;
 
@@ -19,7 +23,9 @@ public class GuessNumber
 		// Type identifier assignment literal
 		int number = (int) (Math.random() * RANDOM_MULTIPLIER) + 1;
 
-		Scanner keyboardInput = new Scanner(System.in);
+		// This argument system.in means scan input from keyboards
+		Scanner UserInput = new Scanner(System.in);
+		input.close();
 		// Method
 		System.out.println("Guess a magic number between 0 and 100");
 
@@ -31,6 +37,8 @@ public class GuessNumber
 
 			// Method with string literal
 			// Standard output with System class
+			// Use object to call Scanner class methods to input next int
+			// nextInt returns value, assign value to guess variable
 			System.out.print("\nEnter your guess: ");
 			guess = keyboardInput.nextInt();
 
