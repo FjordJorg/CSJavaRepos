@@ -25,7 +25,7 @@ public class GuessNumber
 
 		// This argument system.in means scan input from keyboards
 		Scanner UserInput = new Scanner(System.in);
-		input.close();
+
 		// Method
 		System.out.println("Guess a magic number between 0 and 100");
 
@@ -40,13 +40,14 @@ public class GuessNumber
 			// Use object to call Scanner class methods to input next int
 			// nextInt returns value, assign value to guess variable
 			System.out.print("\nEnter your guess: ");
-			guess = keyboardInput.nextInt();
+			guess = UserInput.nextInt();
 
 			// Boolean primitive data type non numeric
 			if (guess == number)
 			{
 				// String is a non primitive data type
 				System.out.println("Yes, the number is " + number);
+				input.close();
 			} else if (guess > number)
 			{
 				System.out.println("Your guess is too high");
