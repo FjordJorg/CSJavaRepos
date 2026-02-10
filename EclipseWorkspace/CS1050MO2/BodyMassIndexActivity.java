@@ -4,7 +4,7 @@
 
  *  Class: CS1050 (T/TH) 
 
- *  Description: Guided Exploration 01       
+ *  Description: Calculates Body Mass Index based on US BMI equation     
 
  *    
 
