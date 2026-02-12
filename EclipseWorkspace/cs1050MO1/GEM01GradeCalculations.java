@@ -44,6 +44,9 @@ public class GEM01GradeCalculations
 		} else if (classPartGrade >= 70)
 		{
 			System.out.println("Total Grade is a C!");
+		} else if (classPartGrade >= 60)
+		{
+			System.out.println("Total Grade is a D!");
 		}
 
 		// Output average with string
