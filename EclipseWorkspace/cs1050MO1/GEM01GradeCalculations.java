@@ -15,6 +15,7 @@ public class GEM01GradeCalculations
 
 		// Declare Constants and assign values
 		// Declared as double to attain decimal
+		// Constants are all caps
 		final double CLASS_PART = 0.15;
 		final double GUIDED_EXP = 0.20;
 		final double QUIZZES = 0.25;
@@ -22,18 +23,31 @@ public class GEM01GradeCalculations
 		final double FINAL_DEM = 0.20;
 
 		// Declare Variables and assign values with equation and operators
-		double ClassPartGrade = 95 * CLASS_PART;
-		double GuidedExpGrade = 92 * GUIDED_EXP;
-		double QuizzesGrade = 88 * QUIZZES;
-		double ProjectsGrade = 87 * PROJECTS;
-		double FinalDemGrade = 93 * FINAL_DEM;
+		// Variables are camelCase, start with lowercase
+		// classPartGrade originally 95
+		double classPartGrade = 89.99 * CLASS_PART;
+		double guidedExpGrade = 92 * GUIDED_EXP;
+		double quizzesGrade = 88 * QUIZZES;
+		double projectsGrade = 87 * PROJECTS;
+		double finalDemGrade = 93 * FINAL_DEM;
 
 		// Calculate total average using equation
-		double TotalGrade = ClassPartGrade + GuidedExpGrade + QuizzesGrade
-				+ ProjectsGrade + FinalDemGrade;
+		double totalGrade = classPartGrade + guidedExpGrade + quizzesGrade
+				+ projectsGrade + finalDemGrade;
+
+		if (totalGrade >= 90)
+		{
+			System.out.println("Total Grade is an A! ");
+		} else if (totalGrade >= 80)
+		{
+			System.out.println("Total Grade is a B!");
+		} else if (classPartGrade >= 70)
+		{
+			System.out.println("Total Grade is a C!");
+		}
 
 		// Output average with string
-		System.out.println("Warren's grade is " + TotalGrade + " Out of 100.");
+		System.out.println("Warren's grade is " + totalGrade + " Out of 100.");
 
 	}// main
 
