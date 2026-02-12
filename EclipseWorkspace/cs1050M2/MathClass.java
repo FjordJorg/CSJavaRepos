@@ -18,6 +18,10 @@ public class MathClass
 	{
 		Scanner input = new Scanner(System.in);
 
+		// input scans to read first name and last initial
+		// make notes describing the code, distracted by project files not
+		// working
+		// fixed issues, describe code
 		System.out.println("Enter first name");
 		String firstName = input.next();
 		System.out.println("First name " + firstName);
