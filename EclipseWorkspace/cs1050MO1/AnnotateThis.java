@@ -37,8 +37,9 @@ public class AnnotateThis
 		final int TAX_PERCENT = 8;
 
 		// Q4: What value does totalApples have right now?
-		// A4: 7. The program has initialized a new variable and stored the data
-		// from the variable apples
+		// A4: 7. The program has initialized a new variable as an int and
+		// stored
+		// the data (assigned the value) from the variable apples.
 		int totalApples = apples;
 
 		// Q5: What value does totalApples have now?
@@ -49,16 +50,16 @@ public class AnnotateThis
 		// Q6: What is the value of mathResult? Why? What order of operations is
 		// being followed?
 		// A6: 18. PEMDAS is being followed, parentheses, exponents,
-		// multiplication/division,
-		// addition/subtraction.
+		// multiplication/division, addition/subtraction.
+		// Since there are no parentheses, multiplication happens first, then
+		// addition. 4 * 2 = 8. 8 + 10 = 18.
 		int mathResult = 10 + 4 * 2;
 
 		// Q7: What value is stored here? Why?
 		// A7: 3. Since this is an integer division, no decimal value will be
 		// stored.
-		// it "truncates" the decimal value, or deletes it, and returns the
-		// integer
-		// with out the remainder or the decimal.
+		// It "truncates" the decimal value, or deletes it, and returns the
+		// integer without the remainder or the decimal.
 		int intDivision = 17 / 5;
 
 		// Q8: Why is this NOT 3.4 even though the variable is double?
@@ -70,32 +71,30 @@ public class AnnotateThis
 
 		// Q9: What value is stored here? What changed compared to above?
 		// A9: 3.4. Because there is a decimal value, Java will automatically
-		// cast,
-		// called implicit casting, into a double.
+		// cast,called implicit casting, into a double.
 		double realDivision = 17 / 5.0;
 
 		// Q10: What value will be assigned to remainder
 		// A10: 2. The Modulo operator, %, returns the remainder of division.
 		// 17 / 5 = 3.4. When doing long division, a remainder of 2 is left
 		// over.
-		// Modulo operator will produce the remainder.
+		// Modulo operator will produce the remainder rather than the decimal
+		// value or integer value.
 		int remainder = 17 % 5;
 
 		// Q11: What type is the result of this expression? Why?
 		// A11: double, (variable) Numeric Primitive data type.
 		// pricePerApple was stored as a decimal value (0.75), multiplying by an
 		// integer variable totalApples (currently 10). This will widen the
-		// integer
-		// into a double automatically. Example of implicit casting (automatic)
+		// integer into a double automatically. Example of implicit casting.
 		double subtotal = totalApples * pricePerApple;
 
 		// Q12: What kind of casting is being done here? Will it round or
 		// truncate?
-		// A12: This is explicit (manual) casting. Since it is manually casting
-		// into an
-		// integer, it will truncate (remove) the decimal value and only store
-		// the
-		// integer value.
+		// A12: This is explicit (manual/narrowing) casting. Since it is
+		// manually
+		// casting into an integer, it will truncate (remove) the decimal value
+		// and only store the integer value.
 		int dollarsOnly = (int) subtotal;
 
 		// Q13: What class is used for standard output? How can you tell (naming
@@ -103,8 +102,8 @@ public class AnnotateThis
 		// A13: System: class. class names use uppercase first letter CamelCase,
 		// out: field/object (default console) static member of the System
 		// class.
-		// Represents the standard output stream.
 		// println()- method, camelCase starts with lowercase.
+		// Represents the standard output stream.
 		System.out.println("totalApples = " + totalApples);
 
 		// Q14: Before running, predict the outputs for all division-related
@@ -117,16 +116,36 @@ public class AnnotateThis
 
 		// Q15: declare a variable called cuteDog and assign it the string value
 		// Jalapena
+		// Strings need to be declared as a quotation "".
 		String cuteDog = "Jalepena";
 
 		// Q16: Why is 100.0 used instead of 100?
+		// A16: To force floating-point division and get a precise decimal
+		// result
+		// Sales tax is 8%, and TAX_PERCENT was declared as a constant (final
+		// int).
+		// By implicitly casting, integer 8 is divided by 100.00 to give it a
+		// decimal value, allowing the taxRate to hold 0.08 as the proper
+		// floating point value.
 		double taxRate = TAX_PERCENT / 100.0;
 
 		// Q17: Break this expression into steps. What happens first? What value
 		// is assigned to totalWithTax?
+		// totalWithTax is first initialized as a variable as a literal double
+		// to be able to hold a floating point decimal value.
+		// Next, it is assigned the value of an arithmetic expression.
+		// subtotal = totalApples * pricePerApple (calculated in previous line)
+		// PEMDAS (subtotal (7.5) * taxRate (0.08) = 0.6) + subtotal (7.5) = 8.1
+		// taxRate is applied to subtotal to find the taxes. It is then added to
+		// the subtotal to produce the accurate totalWithTax.
 		double totalWithTax = subtotal + (subtotal * taxRate);
 
 		// Q18: What data type is totalWithTax and why?
+		// A18: Primitive Numeric variable double
+		// It stores the raw binary numerical value directly on the stack for
+		// performance, rather than being an object reference on the heap.
+		// Primitive types are reserved keywords built into the language and
+		// are not objects. Variables use camelCase (lowercase first)
 		System.out.println("totalWithTax = " + totalWithTax);
 	}
 }

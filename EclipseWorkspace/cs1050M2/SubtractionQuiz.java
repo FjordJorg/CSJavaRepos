@@ -21,10 +21,13 @@ public class SubtractionQuiz
 			number1 = number2;
 			number2 = temp;
 			System.out.println("temp value is " + temp);
+		} else if (number1 > number2)
+		{
+			int temp = number2;
+			number2 = number1;
+			number1 = temp;
+			System.out.println("temp value is " + temp);
 		}
-
-		System.out.println("temp value is " + temp);
-
 		// 3. Prompt the student to answer "what is number1 – number2?"
 		System.out.print("What is " + number1 + " - " + number2 + "? ");
 		Scanner input = new Scanner(System.in);

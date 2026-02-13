@@ -1,4 +1,3 @@
-@@ -1,59 +0,0 @@
 /* 
 
  *  Name: Warren
@@ -9,7 +8,7 @@
 
  *    
 
- */ 
+ */
 
 // ADD CODE to import Scanner class
 import java.util.Scanner;
@@ -19,25 +18,28 @@ public class BodyMassIndexActivity
 
 	public static void main(String[] args)
 	{
-		
-		//Create constand an variables
+
+		// Create constants and variables
 		// constants
 		double bmi;
+		// This causes an error because BMI_US_FACTOR has not been initialized
+		// as a value. Find equation, insert below
 		final double BMI_US_FACTOR;
 		double weight = 0;
 		double height = 0;
 		double BMI;
-		 // factor formula in pounds
+		// factor formula in pounds
 		// Variables
 		// Variables
 		// The user's weight
 		// The user's height
-		 // The user's BMI
+		// The user's BMI
 
 		// Create a Scanner object for scanning input from keyboard
 		Scanner input = new Scanner(System.in);
 		// Tell the user what the program will do.
-		System.out.println("This program will calculate your " + "body mass index, or BMI.");
+		System.out.println("This program will calculate your "
+				+ "body mass index, or BMI.");
 
 		// Get the user's weight.
 		System.out.print("Enter your weight, in pounds: ");
@@ -54,7 +56,6 @@ public class BodyMassIndexActivity
 
 		// Display the user's BMI.
 		System.out.printf("Your body mass index (BMI) is %f", bmi);
-		
 
 	}
 }
