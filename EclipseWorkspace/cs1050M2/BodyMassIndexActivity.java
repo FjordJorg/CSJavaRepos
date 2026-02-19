@@ -53,7 +53,7 @@ public class BodyMassIndexActivity
 		// Calculate the user's body mass index.
 		// Display the user's BMI.
 		// %.2f something like that will limit decimal value
-		System.out.printf("Your body mass index (BMI) is " + %.2fbmi);
+		System.out.printf("Your body mass index (BMI) is %.2f", +bmi);
 
 	}
 }
