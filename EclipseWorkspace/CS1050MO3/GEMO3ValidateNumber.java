@@ -21,6 +21,7 @@ public class GEMO3ValidateNumber
 		System.out.print("Please enter a positive value number");
 		int number = input.nextInt();
 
+		// do while does not execute. Perhaps use sentinel value, while
 		do
 		{
 			System.out.println("Error. Please enter positive number");

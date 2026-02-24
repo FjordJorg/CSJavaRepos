@@ -24,6 +24,7 @@ public class GEMO2ConcertTicketPrices
 		// assigns variable f as character f
 		char f = 'f';
 		// converts character f to uppercase F
+		// this allows user to input lower or upper case letters
 		char upperF = Character.toUpperCase(f);
 		char c = 'c';
 		char upperC = Character.toUpperCase(c);
@@ -32,10 +33,16 @@ public class GEMO2ConcertTicketPrices
 		char u = 'u';
 		char upperU = Character.toUpperCase(u);
 
+		// Asks user to input section
 		System.out.println("Enter ONE character for section - ");
 		System.out.println("F: Front  C: Center  S: Side  U: Upper ");
 		char section = Character.toUpperCase(input.next().charAt(0));
 
+		// if statements test which character is inputed, closes
+		// program if it isn't F, C, S, or U.
+
+		// Try to change to while loop, so it repeats if wrong
+		// character is used, same for row
 		if (section == upperF)
 		{
 			System.out.print("You entered Front section.");
@@ -53,6 +60,8 @@ public class GEMO2ConcertTicketPrices
 			System.out.print("Invalid selection. Terminating program.");
 		}
 
+		// Outputs message prompting user to input integer
+		// creates variable assigned to next integer input
 		System.out.print(" Enter row between 1 - 60");
 		int row = input.nextInt();
 
