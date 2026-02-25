@@ -33,6 +33,8 @@ public class GEMO2ConcertTicketPrices
 		char u = 'u';
 		char upperU = Character.toUpperCase(u);
 
+		double cost = 0;
+
 		// Asks user to input section
 		System.out.println("Enter ONE character for section - ");
 		System.out.println("F: Front  C: Center  S: Side  U: Upper ");
@@ -57,7 +59,7 @@ public class GEMO2ConcertTicketPrices
 			System.out.print("You entered Upper section.");
 		} else
 		{
-			System.out.print("Invalid selection. Terminating program.");
+			System.out.print("Invalid selection. Please try again.");
 		}
 
 		// Outputs message prompting user to input integer
@@ -65,13 +67,27 @@ public class GEMO2ConcertTicketPrices
 		System.out.print(" Enter row between 1 - 60");
 		int row = input.nextInt();
 
-		if (row >= 1 && row <= 60)
+		//
+		if (row >= 1 && row <= 15)
 		{
-			System.out.println("Valid input: " + row);
+			cost = 450.00;
+			System.out.println("You entered section: " + section + " row " + row
+					+ " The cost is $" + cost);
+		} else if (row >= 16 && row <= 30)
+		{
+			cost = 300.00;
+			System.out.println("You entered section: " + section + " row " + row
+					+ " The cost is $" + cost);
+		} else if (row >= 31 && row <= 60)
+		{
+			cost = 200.00;
+			System.out.println("You entered section: " + section + " row " + row
+					+ " The cost is $" + cost);
 		} else
 		{
 			System.out.print("Invalid row. Program terminating.");
 		}
+
 		// Closes input
 		input.close();
 	}
