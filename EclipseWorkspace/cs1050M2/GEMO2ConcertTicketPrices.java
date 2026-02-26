@@ -4,10 +4,9 @@
 
  *  Class: CS1050 (T/TH) 
 
- *  Description: Calculates     
-
+ *  Description: Requests section and row for "concert", displays price for appropriate 
+ *  row and section  
  *    
-
  */
 import java.util.Scanner;
 
@@ -67,7 +66,9 @@ public class GEMO2ConcertTicketPrices
 		System.out.print(" Enter row between 1 - 60");
 		int row = input.nextInt();
 
-		//
+		// if else if statements to determine which row and price
+		// first if tests row 1-15, second else if tests row 16-30,
+		// Third else if tests row 31-60, then displays selected row price
 		if (row >= 1 && row <= 15)
 		{
 			cost = 450.00;
