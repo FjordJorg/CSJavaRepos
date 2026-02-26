@@ -15,9 +15,6 @@ import java.util.Scanner;
 public class GEMO2Madlib
 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args)
 	{
 		Scanner input = new Scanner(System.in);
