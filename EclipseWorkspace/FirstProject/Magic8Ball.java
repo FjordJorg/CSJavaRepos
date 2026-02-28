@@ -28,7 +28,7 @@ public class Magic8Ball
 		}
 		if (random == 6)
 		{
-			System.out.print("Fuck no!");
+			System.out.print("Unequivocably no!");
 		}
 		if (random == 7)
 		{
