@@ -21,6 +21,7 @@ public class GuessNumber
 
 		// Declaring a variable and assigning an equation applied to user input
 		// Type identifier assignment literal
+		// Math.random() is a method
 		int number = (int) (Math.random() * RANDOM_MULTIPLIER) + 1;
 
 		// This argument system.in means scan input from keyboards

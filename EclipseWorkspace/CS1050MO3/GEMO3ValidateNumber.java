@@ -70,5 +70,6 @@ public class GEMO3ValidateNumber
 		System.out.println("Result is: " + result);
 
 		input.close();
+
 	}
 }
