@@ -14,14 +14,14 @@ public class MO2ModuleTwoReview
 		// Predict the results before
 		// Prediction first; Result second
 
-		System.out.println("1: " + (5 > 3 && 2 < 4)); // 1: False
+		System.out.println("1: " + (5 > 3 && 2 < 4));
 		// Answer: True (5 is greater, AND 4 is greater)
 		System.out.println("2: " + (true || false && false)); // 2. True
 		// && first, || or second.
-
 		System.out.println("3: " + (!(5 > 3))); // 3. False
-		System.out.println("4: " + (3 + 4 > 5 && 10 != 8)); // 4. False
-		// Ans: True 7 greater AND 10 is NOT 8
+		// NOT 5 is greater than 3.
+		System.out.println("4: " + (3 + 4 > 5 && 10 != 8));
+		// True 7: greater AND 10 is NOT 8
 
 		System.out.println("\n=== SIMPLE IF / ELSE ===");
 
@@ -100,9 +100,6 @@ public class MO2ModuleTwoReview
 		{
 			int newNumber = 20;
 		}
-
-		// what will print?
-		// System.out.println(newNumber);
 		// 10. 10, newNumber was never initialized outside of loop. Not part of
 		// scope.
 
