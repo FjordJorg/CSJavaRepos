@@ -27,10 +27,8 @@ public class GEMO3DisplayBMISummary
 		System.out.println("This program will calculate your "
 				+ "body mass index, or BMI.");
 
-		double[] measurements = validateBMInumbers();
-
-		double weight = measurements[0];
-		double height = measurements[1];
+		double weight = validateWeight();
+		double height = validateHeight();
 
 		double bmi = (weight / (height * height)) * BMI_US_FACTOR;
 
@@ -51,11 +49,10 @@ public class GEMO3DisplayBMISummary
 		input.close();
 	}
 
-	public static double[] validateBMInumbers()
+	public static double validateWeight()
 	{
 
 		double weight = 0;
-		double height = 0;
 
 		do
 		{
@@ -68,9 +65,17 @@ public class GEMO3DisplayBMISummary
 			}
 		} while (weight <= 0);
 
+		return weight;
+	}
+
+	public static double validateHeight()
+	{
+
+		double height = 0;
+
 		do
 		{
-			System.out.print("Please enter height in inches: ");
+			System.out.print("Please enter weight in pounds: ");
 			height = input.nextInt();
 			if (height <= 0)
 			{
@@ -79,8 +84,6 @@ public class GEMO3DisplayBMISummary
 			}
 		} while (height <= 0);
 
-		return new double[]
-		{weight, height};
-
+		return height;
 	}
 }
