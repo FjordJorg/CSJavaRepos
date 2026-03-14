@@ -28,7 +28,7 @@ public class GEMO3TotalSumCalculation
 			inputNum = input.nextInt();
 			if (inputNum <= 0)
 			{
-				System.out.println(" Error, not a valid exponent ");
+				System.out.println(" Error, not a valid number ");
 				System.out.println(" Try again please ");
 			}
 		} while (inputNum <= 0);
