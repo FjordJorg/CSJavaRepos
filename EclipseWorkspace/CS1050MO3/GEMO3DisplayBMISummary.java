@@ -22,15 +22,13 @@ public class GEMO3DisplayBMISummary
 	public static void main(String[] args)
 	{
 
-		double BMI_US_FACTOR = 703;
-
 		System.out.println("This program will calculate your "
 				+ "body mass index, or BMI.");
 
 		double weight = validateWeight();
 		double height = validateHeight();
 
-		double bmi = (weight / (height * height)) * BMI_US_FACTOR;
+		double bmi = calculateBMI(weight, height);
 
 		if (bmi < 18.5)
 		{
@@ -57,11 +55,19 @@ public class GEMO3DisplayBMISummary
 		do
 		{
 			System.out.print("Please enter weight in pounds: ");
+
+			while (!input.hasNextDouble())
+			{
+				System.out.print(
+						"Error, please enter a valid number for weight in pounds: ");
+				input.next();
+			}
+
 			weight = input.nextInt();
 			if (weight <= 0)
 			{
-				System.out.println(" Error, not a valid number. ");
-				System.out.println(" Try again please ");
+				System.out.println(
+						" Error, please enter a valid number for weight in pounds: ");
 			}
 		} while (weight <= 0);
 
@@ -75,15 +81,32 @@ public class GEMO3DisplayBMISummary
 
 		do
 		{
-			System.out.print("Please enter weight in pounds: ");
+			System.out.print("Please enter height in inches: ");
+
+			while (!input.hasNextDouble())
+			{
+				System.out.print(
+						"Error, please enter a valid number for height in inches: ");
+				input.next();
+			}
+
 			height = input.nextInt();
 			if (height <= 0)
 			{
-				System.out.println(" Error, not a valid number. ");
-				System.out.println(" Try again please ");
+				System.out.println(
+						" Error, please enter a valid number for height in inches: ");
 			}
 		} while (height <= 0);
 
 		return height;
+	}
+
+	public static double calculateBMI(double weight, double height)
+	{
+
+		final double BMI_US_FACTOR = 703;
+		final double bmi = (weight / (height * height)) * BMI_US_FACTOR;
+
+		return bmi;
 	}
 }
