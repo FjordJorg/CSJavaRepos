@@ -30,20 +30,8 @@ public class GEMO3DisplayBMISummary
 
 		double bmi = calculateBMI(weight, height);
 
-		if (bmi < 18.5)
-		{
-			System.out.printf("Your BMI is %.2f. This is underweight.%n", bmi);
-		} else if (bmi < 25.0)
-		{
-			System.out.printf("Your BMI is %.2f. This is a healthy weight.%n",
-					bmi);
-		} else if (bmi < 30.0)
-		{
-			System.out.printf("Your BMI is %.2f. This is overweight.%n", bmi);
-		} else
-		{
-			System.out.printf("Your BMI is %.2f. This is obese.%n", bmi);
-		}
+		categorizeBMI(bmi);
+
 		input.close();
 	}
 
@@ -109,4 +97,26 @@ public class GEMO3DisplayBMISummary
 
 		return bmi;
 	}
+
+	public static double categorizeBMI(double bmi)
+	{
+
+		if (bmi < 18.5)
+		{
+			System.out.printf("Your BMI is %.2f. This is underweight.%n", bmi);
+		} else if (bmi < 25.0)
+		{
+			System.out.printf("Your BMI is %.2f. This is a healthy weight.%n",
+					bmi);
+		} else if (bmi < 30.0)
+		{
+			System.out.printf("Your BMI is %.2f. This is overweight.%n", bmi);
+		} else
+		{
+			System.out.printf("Your BMI is %.2f. This is obese.%n", bmi);
+		}
+
+		return bmi;
+	}
+
 }
