@@ -25,12 +25,22 @@ public class GEMO3DisplayBMISummary
 		System.out.println("This program will calculate your "
 				+ "body mass index, or BMI.");
 
-		double weight = validateWeight();
-		double height = validateHeight();
+		boolean repeatProgram = true;
 
-		double bmi = calculateBMI(weight, height);
+		while (repeatProgram)
+		{
 
-		categorizeBMI(bmi);
+			double weight = validateWeight();
+			double height = validateHeight();
+
+			double bmi = calculateBMI(weight, height);
+
+			categorizeBMI(bmi);
+
+			repeatProgram = askToContinue();
+		}
+
+		System.out.println("Thank you for using the BMI Summary program. ");
 
 		input.close();
 	}
@@ -117,6 +127,29 @@ public class GEMO3DisplayBMISummary
 		}
 
 		return bmi;
+	}
+
+	public static boolean askToContinue()
+	{
+
+		char continueResponse;
+
+		do
+		{
+
+			System.out.println("Would you like to enter an additional "
+					+ "BMI value? Y/N: ");
+			continueResponse = input.next().charAt(0);
+
+			if (continueResponse != 'Y' && continueResponse != 'y'
+					&& continueResponse != 'N' && continueResponse != 'n')
+			{
+				System.out.print("Error, please enter Y or N: ");
+			}
+		} while (continueResponse != 'Y' && continueResponse != 'y'
+				&& continueResponse != 'N' && continueResponse != 'n');
+
+		return (continueResponse == 'Y' || continueResponse == 'y');
 	}
 
 }
