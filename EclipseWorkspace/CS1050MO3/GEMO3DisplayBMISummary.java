@@ -134,22 +134,27 @@ public class GEMO3DisplayBMISummary
 
 		char continueResponse;
 
+		boolean invalid = true;
+
 		do
 		{
 
 			System.out.println("Would you like to enter an additional "
 					+ "BMI value? Y/N: ");
-			continueResponse = input.next().charAt(0);
+			continueResponse = input.next().toUpperCase().charAt(0);
 
-			if (continueResponse != 'Y' && continueResponse != 'y'
-					&& continueResponse != 'N' && continueResponse != 'n')
+			if (continueResponse == 'N')
 			{
-				System.out.print("Error, please enter Y or N: ");
+				System.out.print("Thank you, ending program. ");
+				invalid = false;
+			} else if (continueResponse == 'Y')
+			{
+				System.out.print("Returning to beginning of program. ");
+				invalid = false;
 			}
-		} while (continueResponse != 'Y' && continueResponse != 'y'
-				&& continueResponse != 'N' && continueResponse != 'n');
+		} while (invalid);
 
-		return (continueResponse == 'Y' || continueResponse == 'y');
+		return (continueResponse == 'Y');
 	}
 
 }
