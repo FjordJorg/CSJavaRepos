@@ -23,6 +23,9 @@ public class GEMO4LabL15ArraysIntro
 					+ " Has a grade of: " + finalGrades[index] + ". ");
 		}
 
+		// attempt to send grades for sum in new method
+		double[] sum = sumGrades(finalGrades);
+
 		input.close();
 	}
 
@@ -58,6 +61,15 @@ public class GEMO4LabL15ArraysIntro
 		}
 
 		return finalGrades;
+	}
+
+	public static void sumGrades(double finalGrades, double averages)
+	{
+		int sum = 0;
+		
+		
+		for (double sum; sum < finalGrades; )
+		
 	}
 
 }
