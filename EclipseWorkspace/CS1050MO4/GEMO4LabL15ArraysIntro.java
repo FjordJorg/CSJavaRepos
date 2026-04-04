@@ -14,28 +14,50 @@ public class GEMO4LabL15ArraysIntro
 		int amountStudents = input.nextInt();
 		input.nextLine();
 
+		String[] firstNames = inputFirstNames(amountStudents);
+		double[] finalGrades = inputFinalGrades(amountStudents);
+
+		for (int index = 0; index < amountStudents; index++)
+		{
+			System.out.printf("\nStudent: " + firstNames[index]
+					+ " Has a grade of: " + finalGrades[index] + ". ");
+		}
+
+		input.close();
+	}
+
+	public static String[] inputFirstNames(int amountStudents)
+
+	{
 		String[] firstNames = new String[amountStudents];
 
-		System.out.print("Enter the names of each student: ");
-
-		// for loop to fill array with as many names as inputted
-		for (int i = 0; i < firstNames.length; i++)
+		for (int index = 0; index < amountStudents; index++)
 		{
-			System.out.print("Student " + (i + 1) + ": ");
-			firstNames[i] = input.nextLine();
+			System.out.println(
+					"Enter the name for student " + (index + 1) + ": ");
+
+			firstNames[index] = input.nextLine();
+
 		}
 
-		// Print names to verify
-		for (int i = 0; i < firstNames.length; i++)
+		return firstNames;
+
+	}
+
+	public static double[] inputFinalGrades(int amountStudents)
+
+	{
+
+		double[] finalGrades = new double[amountStudents];
+
+		for (int index = 0; index < finalGrades.length; index++)
 		{
-			System.out.print("Student " + (i + 1) + ": ");
-			firstNames[i] = input.nextLine();
+			System.out.println("Enter the numeric grade of each student: ");
+			finalGrades[index] = input.nextDouble();
+
 		}
 
-		int grades = input.nextInt();
-		double[] numbers = new double[grades]; // Create an array
-		double sum = 0;
-
+		return finalGrades;
 	}
 
 }
