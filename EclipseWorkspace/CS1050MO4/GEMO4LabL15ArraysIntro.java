@@ -1,5 +1,14 @@
-/**
- * 
+/* 
+
+ *  Name: Warren Hirschfeld
+
+ *  Class: CS1050 (T/TH) 
+
+ *  Description: MOD4 Grades, create parallel arrays of student names, grades, pass arrays to methods to calculate sum, 
+ *  average, and print names and grades of students at or above average.
+
+ *    
+
  */
 import java.util.Scanner;
 
@@ -7,6 +16,10 @@ public class GEMO4LabL15ArraysIntro
 {
 	static Scanner input = new Scanner(System.in);
 
+	// main creates and passes arrays to methods to fill, calculate sum,
+	// average,
+	// passes to method to print names and scores of students at or above
+	// average
 	public static void main(String[] args)
 	{
 
@@ -14,62 +27,84 @@ public class GEMO4LabL15ArraysIntro
 		int amountStudents = input.nextInt();
 		input.nextLine();
 
-		String[] firstNames = inputFirstNames(amountStudents);
-		double[] finalGrades = inputFinalGrades(amountStudents);
+		String[] firstNames = new String[amountStudents];
+		double[] finalGrades = new double[amountStudents];
+		inputNamesAndGrades(amountStudents, finalGrades, firstNames);
 
-		for (int index = 0; index < amountStudents; index++)
-		{
-			System.out.printf("\nStudent: " + firstNames[index]
-					+ " Has a grade of: " + finalGrades[index] + ". ");
-		}
+		double totalSum = sumGrades(finalGrades);
+		double average = averageGrades(finalGrades, totalSum);
 
-		// attempt to send grades for sum in new method
-		double[] sum = sumGrades(finalGrades);
+		displayAverage(finalGrades, average, firstNames);
 
 		input.close();
 	}
 
-	public static String[] inputFirstNames(int amountStudents)
+	// method to fill names and grades as parallel arrays
+	public static void inputNamesAndGrades(int amountStudents,
+			double[] finalGrades, String[] firstNames)
 
 	{
-		String[] firstNames = new String[amountStudents];
 
+		// for loop index = 0 so the arrays track same position while the loop
+		// increments
+		// up to amountStudents
 		for (int index = 0; index < amountStudents; index++)
 		{
 			System.out.println(
 					"Enter the name for student " + (index + 1) + ": ");
-
 			firstNames[index] = input.nextLine();
+			System.out
+					.println("Enter the grade for " + firstNames[index] + ": ");
+			finalGrades[index] = input.nextDouble();
+			input.nextLine(); // clears line for input, otherwise will cause
+								// error
 
 		}
 
-		return firstNames;
+		return;
 
 	}
 
-	public static double[] inputFinalGrades(int amountStudents)
-
+	// method uses for loop to accumulate sum
+	public static double sumGrades(double[] finalGrades)
 	{
-
-		double[] finalGrades = new double[amountStudents];
+		double totalSum = 0;
 
 		for (int index = 0; index < finalGrades.length; index++)
 		{
-			System.out.println("Enter the numeric grade of each student: ");
-			finalGrades[index] = input.nextDouble();
+			totalSum += finalGrades[index]; // += accumulates and stores added
+											// values
 
 		}
 
-		return finalGrades;
+		return totalSum;
 	}
 
-	public static void sumGrades(double finalGrades, double averages)
+	// method calculates sum, will return if arrays are empty
+	public static double averageGrades(double[] finalGrades, double totalSum)
 	{
-		int sum = 0;
-		
-		
-		for (double sum; sum < finalGrades; )
-		
+		if (finalGrades.length == 0)
+			return 0;
+		double average = totalSum / finalGrades.length;
+		return average;
+	}
+
+	// method will print names and scores of students at or above average
+	public static void displayAverage(double[] finalGrades, double average,
+			String[] firstNames)
+	{
+		for (int index = 0; index < finalGrades.length; index++)
+		{
+			if (finalGrades[index] >= average)
+			{
+				System.out.printf("\n" + firstNames[index]
+						+ " scored at or above average with a grade of: %.2f",
+						finalGrades[index]); // %.2f must use comma, not
+												// concatenation, printf, not
+												// prinln
+			}
+		}
+		return;
 	}
 
 }
