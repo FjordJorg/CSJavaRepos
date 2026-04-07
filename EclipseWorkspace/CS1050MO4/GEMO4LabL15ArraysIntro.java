@@ -40,6 +40,16 @@ public class GEMO4LabL15ArraysIntro
 	}
 
 	// method to fill names and grades as parallel arrays
+	/**
+	 * @param amountStudents
+	 * @param finalGrades
+	 * @param firstNames
+	 */
+	/**
+	 * @param amountStudents
+	 * @param finalGrades
+	 * @param firstNames
+	 */
 	public static void inputNamesAndGrades(int amountStudents,
 			double[] finalGrades, String[] firstNames)
 
@@ -66,6 +76,10 @@ public class GEMO4LabL15ArraysIntro
 	}
 
 	// method uses for loop to accumulate sum
+	/**
+	 * @param finalGrades
+	 * @return
+	 */
 	public static double sumGrades(double[] finalGrades)
 	{
 		double totalSum = 0;
