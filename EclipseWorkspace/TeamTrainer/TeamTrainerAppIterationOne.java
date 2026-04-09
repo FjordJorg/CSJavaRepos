@@ -20,24 +20,46 @@ public class TeamTrainerAppIterationOne
 	 */
 	public static void main(String[] args)
 	{
+		// initialize and declare all constants, variables, and strings in main
 		final double BMI_US_FACTOR = 703;
-		int weight = 0;
-		int height = 0;
-		int age = 0;
 		int numAthletes = 0;
-		final double BMI = (weight / (height * height) * BMI_US_FACTOR);
 		double sumMHR = 0.0;
 		double averageMHR = 0.0;
 		double highestMHR = 0.0;
 		String[] athleteName = new String[numAthletes];
-		int[] athleteAge = new int[numAthletes];
-		int[] athleteHeight = new int[numAthletes];
-		int[] athleteWeight = new int[numAthletes];
 		double[] athleteBMI = new double[numAthletes];
 		String[] athleteBMICategory = new String[numAthletes];
 		double[] maxHeartRate = new double[numAthletes];
 		double[] trainingMHR = new double[numAthletes];
 
+		// organizing methods
+		inputAthleteData(numAthletes, athleteName);
+
+		for (int index = 0; index < numAthletes; index++)
+		{
+			System.out.printf("\nAthletes names are: " + athleteName[index]);
+		}
 	}
 
+	public static void inputAthleteData(int numAthletes, String[] athleteName)
+
+	{
+
+		System.out.println("Enter the number of athletes: ");
+		numAthletes = input.nextInt();
+
+		// for loop index = 0 so the arrays track same position while the loop
+		// increments
+		// up to amountStudents
+		for (int index = 0; index < numAthletes; index++)
+		{
+			System.out.println(
+					"Enter the name for athlete " + (index + 1) + ": ");
+			athleteName[index] = input.nextLine();
+			input.nextLine(); // clears line for input, otherwise will cause
+								// error
+		}
+
+		return;
+	}
 }
