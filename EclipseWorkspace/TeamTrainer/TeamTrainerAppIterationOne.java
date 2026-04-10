@@ -36,7 +36,7 @@ public class TeamTrainerAppIterationOne
 		inputAthleteData(numAthletes, athleteName);
 
 		// For loop to print out athletes to make sure arrays are stored
-		// properly
+		// properly and names are printed. Will delete once code works.
 		for (int index = 0; index < numAthletes; index++)
 		{
 			System.out.printf("\nAthletes names are: " + athleteName[index]);
