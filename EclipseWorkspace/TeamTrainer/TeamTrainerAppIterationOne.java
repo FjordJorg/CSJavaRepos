@@ -35,6 +35,8 @@ public class TeamTrainerAppIterationOne
 		// organizing methods
 		inputAthleteData(numAthletes, athleteName);
 
+		// For loop to print out athletes to make sure arrays are stored
+		// properly
 		for (int index = 0; index < numAthletes; index++)
 		{
 			System.out.printf("\nAthletes names are: " + athleteName[index]);
