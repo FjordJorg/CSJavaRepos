@@ -32,20 +32,12 @@ public class TeamTrainerAppIterationOne
 		String[] athleteName = new String[numAthletes];
 		double[] athleteBMI = new double[numAthletes];
 		String[] athleteBMICategory = new String[numAthletes];
-		double[] maxHeartRate = new double[numAthletes];
+		int[] maxHeartRate = new int[numAthletes];
 		double[] trainingMHR = new double[numAthletes];
 
 		inputAthleteData(numAthletes, athleteName, athleteBMI, maxHeartRate);
+		displayAthleteData(numAthletes, athleteName, athleteBMI, maxHeartRate);
 
-		// For loop to print out athletes to make sure arrays are stored
-		// properly and names are printed. Delete once code works.
-		for (int index = 0; index < numAthletes; index++)
-		{
-			System.out.printf(
-					"\nAthlete " + (index + 1) + " is: " + athleteName[index]);
-			System.out.printf("\nBMI: %.1f", athleteBMI[index]);
-			System.out.printf("\nMHR: " + maxHeartRate[index]);
-		}
 	}
 	public static int inputNumAthletes(int numAthletes)
 	{
@@ -71,8 +63,9 @@ public class TeamTrainerAppIterationOne
 
 		return numAthletes;
 	}
+
 	public static void inputAthleteData(int numAthletes, String[] athleteName,
-			double[] athleteBMI, double[] maxHeartRate)
+			double[] athleteBMI, int[] maxHeartRate)
 
 	{
 
@@ -161,5 +154,44 @@ public class TeamTrainerAppIterationOne
 			input.nextLine();
 		}
 		return;
+	}
+
+	public static String categorizeBMI(int numAthletes, double[] athleteBMI,
+			String categoryBMI)
+	{
+
+		for (int index = 0; index < numAthletes; index++)
+		{
+			if (athleteBMI[index] < 18.5)
+			{
+				System.out.printf("Underweight");
+			} else if (athleteBMI[index] < 25.0)
+			{
+				System.out.printf("Normal");
+			} else if (athleteBMI[index] < 30.0)
+			{
+				System.out.printf("Overweight");
+			} else
+			{
+				System.out.printf("Obese");
+			}
+		}
+
+		return categoryBMI;
+	}
+	public static void displayAthleteData(int numAthletes, String[] athleteName,
+			double[] athleteBMI, String categoryBMI, int[] maxHeartRate)
+	{
+		// For loop to print out athletes to make sure arrays are stored
+		// properly and names are printed. Delete once code works.
+		for (int index = 0; index < numAthletes; index++)
+		{
+			String categoryBMI = categorizeBMI(athleteBMI[index]);
+			System.out.printf(
+					"\nAthlete " + (index + 1) + " is: " + athleteName[index]);
+			System.out.printf("\nBMI: %.1f", athleteBMI[index]);
+			System.out.printf("\nBMI Category: " + categoryBMI);
+			System.out.printf("\nMHR: " + maxHeartRate[index]);
+		}
 	}
 }
