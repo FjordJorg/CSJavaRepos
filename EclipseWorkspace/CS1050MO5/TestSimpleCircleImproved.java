@@ -28,7 +28,7 @@ public class TestSimpleCircleImproved
 		// Call the method to print the number of circles
 		// set the radius to a new value
 		// print the area of the thrid circle
-
+		RectangleA rectangle1 = new RectangleA();
 	}
 }
 
@@ -77,6 +77,15 @@ class SimpleCircleA
 	public static String getShape()
 	{
 		return shape;
+	}
+
+	class RectangleA
+	{
+		private static double length;
+		private static double width;
+
+		private double perimeter = 2 * (length + width);
+		private double area = (length * width);
 	}
 
 }
