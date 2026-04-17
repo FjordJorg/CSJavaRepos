@@ -45,12 +45,12 @@ public class TeamTrainerAppIterationOne
 
 		// call methods to customize array display: outside normal BMI, above
 		// average MHR
-		displayOutsideNormalBMI(numAthletes, athleteName, athleteBMI,
-				athleteBMICategory);
+		displayOutsideNormalBMI(numAthletes, athleteName, athleteBMICategory);
 		averageMHR = calculateAverageMHR(numAthletes, maxHeartRate);
 		findHighestMHR(numAthletes, maxHeartRate, athleteName);
 		displayAboveAverageMHR(numAthletes, maxHeartRate, averageMHR,
 				athleteName);
+		calculateTrainingHeartRate(numAthletes, athleteName, maxHeartRate);
 
 	}
 	public static int inputNumAthletes(int numAthletes)
@@ -200,16 +200,15 @@ public class TeamTrainerAppIterationOne
 		// properly and names are printed. Delete once code works.
 		for (int index = 0; index < numAthletes; index++)
 		{
-			System.out.printf(
-					"\nAthlete " + (index + 1) + ":\n " + athleteName[index]);
+			System.out.printf("\n\nAthlete " + (index + 1) + ": " + "\n"
+					+ athleteName[index]);
 			System.out.printf("\nBMI: %.1f", athleteBMI[index]);
 			System.out.printf("\nBMI Category: " + athleteBMICategory[index]);
 			System.out.printf("\nMHR: " + maxHeartRate[index]);
 		}
 	}
 	public static void displayOutsideNormalBMI(int numAthletes,
-			String[] athleteName, double[] athleteBMI,
-			String[] athleteBMICategory)
+			String[] athleteName, String[] athleteBMICategory)
 	{
 		// boolean to break loops early if all athletes are categorized as
 		// normal
@@ -266,7 +265,7 @@ public class TeamTrainerAppIterationOne
 		}
 
 		System.out.printf(
-				"\n**Average MHR is: **" + (sum / (double) numAthletes));
+				"\n**Average MHR is: " + (sum / (double) numAthletes) + "**");
 
 		return sum / (double) numAthletes;
 	}
@@ -295,7 +294,7 @@ public class TeamTrainerAppIterationOne
 	public static void displayAboveAverageMHR(int numAthletes,
 			int[] maxHeartRate, double averageMHR, String[] athleteName)
 	{
-		System.out.printf("\n**Athletes at or above average MHR: **");
+		System.out.printf("\n\n**Athletes at or above average MHR: **");
 
 		for (int index = 0; index < numAthletes; index++)
 		{
@@ -305,5 +304,70 @@ public class TeamTrainerAppIterationOne
 						"\n" + athleteName[index] + ": " + maxHeartRate[index]);
 			}
 		}
+	}
+
+	public static void calculateTrainingHeartRate(int numAthletes,
+			String[] athleteName, int[] maxHeartRate)
+	{
+		char continueResponse;
+
+		boolean valid = true;
+
+		do
+		{
+			System.out.print(
+					"\nDo you want to calculate the training heart rates? (y/n): ");
+			continueResponse = input.next().toUpperCase().charAt(0);
+
+			if (continueResponse == 'Y')
+			{
+				double percentage;
+
+				do
+				{
+					System.out.print("\nEnter training percentage: ");
+
+					while (!input.hasNextDouble())
+					{
+						System.out.println(
+								"Error: value must be greater than 0.");
+						input.next();
+					}
+
+					percentage = input.nextDouble();
+
+					if (percentage <= 0)
+					{
+						System.out.println(
+								"Error: value must be greater than 0.");
+					}
+
+				} while (percentage <= 0);
+
+				input.nextLine(); // clear buffer
+
+				for (int index = 0; index < numAthletes; index++)
+				{
+					double trainingHR = maxHeartRate[index]
+							* (percentage / 100.0);
+					System.out.printf("%s Training Heart Rate: %.1f\n",
+							athleteName[index], trainingHR);
+				}
+
+				System.out.println("\n**Training Program Analysis complete**");
+				valid = false;
+				return;
+			}
+			if (continueResponse == 'N')
+			{
+				System.out.println("\n**Training Program Analysis complete**");
+				valid = false;
+				return;
+			} else
+			{
+				System.out.println("Error. Please enter y, Y, n, or N: ");
+			}
+
+		} while (valid);
 	}
 }
