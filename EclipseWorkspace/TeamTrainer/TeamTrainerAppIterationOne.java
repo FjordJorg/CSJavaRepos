@@ -29,14 +29,28 @@ public class TeamTrainerAppIterationOne
 		// organizing methods
 		numAthletes = inputNumAthletes(numAthletes);
 
+		// initializing arrays
 		String[] athleteName = new String[numAthletes];
 		double[] athleteBMI = new double[numAthletes];
 		String[] athleteBMICategory = new String[numAthletes];
 		int[] maxHeartRate = new int[numAthletes];
 		double[] trainingMHR = new double[numAthletes];
 
+		// calling methods and passing arrays to fill data, display data after
+		// calculating BMI/category and MHR.
 		inputAthleteData(numAthletes, athleteName, athleteBMI, maxHeartRate);
-		displayAthleteData(numAthletes, athleteName, athleteBMI, maxHeartRate);
+		categorizeBMI(numAthletes, athleteBMI, athleteBMICategory);
+		displayAthleteData(numAthletes, athleteName, athleteBMI, maxHeartRate,
+				athleteBMICategory);
+
+		// call methods to customize array display: outside normal BMI, above
+		// average MHR
+		displayOutsideNormalBMI(numAthletes, athleteName, athleteBMI,
+				athleteBMICategory);
+		averageMHR = calculateAverageMHR(numAthletes, maxHeartRate);
+		findHighestMHR(numAthletes, maxHeartRate, athleteName);
+		displayAboveAverageMHR(numAthletes, maxHeartRate, averageMHR,
+				athleteName);
 
 	}
 	public static int inputNumAthletes(int numAthletes)
@@ -156,42 +170,140 @@ public class TeamTrainerAppIterationOne
 		return;
 	}
 
-	public static String categorizeBMI(int numAthletes, double[] athleteBMI,
-			String categoryBMI)
+	public static void categorizeBMI(int numAthletes, double[] athleteBMI,
+			String[] athleteBMICategory)
 	{
 
 		for (int index = 0; index < numAthletes; index++)
 		{
 			if (athleteBMI[index] < 18.5)
 			{
-				System.out.printf("Underweight");
+				athleteBMICategory[index] = "Underweight";
 			} else if (athleteBMI[index] < 25.0)
 			{
-				System.out.printf("Normal");
+				athleteBMICategory[index] = "Normal";
 			} else if (athleteBMI[index] < 30.0)
 			{
-				System.out.printf("Overweight");
+				athleteBMICategory[index] = "Overweight";
 			} else
 			{
-				System.out.printf("Obese");
+				athleteBMICategory[index] = "Obese";
 			}
 		}
 
-		return categoryBMI;
 	}
 	public static void displayAthleteData(int numAthletes, String[] athleteName,
-			double[] athleteBMI, String categoryBMI, int[] maxHeartRate)
+			double[] athleteBMI, int[] maxHeartRate,
+			String[] athleteBMICategory)
 	{
 		// For loop to print out athletes to make sure arrays are stored
 		// properly and names are printed. Delete once code works.
 		for (int index = 0; index < numAthletes; index++)
 		{
-			String categoryBMI = categorizeBMI(athleteBMI[index]);
 			System.out.printf(
-					"\nAthlete " + (index + 1) + " is: " + athleteName[index]);
+					"\nAthlete " + (index + 1) + ":\n " + athleteName[index]);
 			System.out.printf("\nBMI: %.1f", athleteBMI[index]);
-			System.out.printf("\nBMI Category: " + categoryBMI);
+			System.out.printf("\nBMI Category: " + athleteBMICategory[index]);
 			System.out.printf("\nMHR: " + maxHeartRate[index]);
+		}
+	}
+	public static void displayOutsideNormalBMI(int numAthletes,
+			String[] athleteName, double[] athleteBMI,
+			String[] athleteBMICategory)
+	{
+		// boolean to break loops early if all athletes are categorized as
+		// normal
+		boolean found = false;
+
+		// Checks to see if any athlete is outside of the normal BMI category
+		for (int index = 0; index < numAthletes; index++)
+		{
+			if (!athleteBMICategory[index].equals("Normal"))
+			{
+				found = true;
+				break;
+			}
+		}
+
+		// if previous loop verifies none are outside of normal, prints message,
+		// returns to main.
+		if (!found)
+		{
+			System.out.println("\nNo athletes outside of normal range");
+			return;
+		}
+
+		// Otherwise, code will print out athletes outside normal BMI range
+		// by checking string category and using an indexed for loop
+		// to print categories that aren't in normal range
+
+		System.out.println("\nAthletes outside normal BMI range:");
+
+		for (int index = 0; index < numAthletes; index++)
+		{
+			if (athleteBMICategory[index].equals("Underweight"))
+			{
+				System.out.println("Below normal: " + athleteName[index]);
+			} else if (athleteBMICategory[index].equals("Overweight")
+					|| athleteBMICategory[index].equals("Obese"))
+			{
+				System.out.println("Above normal: " + athleteName[index]);
+			}
+		}
+	}
+
+	// Calculates sum of maxHeartRate array using a for loop, then returns
+	// average by dividing
+	// sum by numAthletes, which needs to be cast as double to compute average.
+	public static double calculateAverageMHR(int numAthletes,
+			int[] maxHeartRate)
+	{
+		double sum = 0.0;
+
+		for (int index = 0; index < numAthletes; index++)
+		{
+			sum += maxHeartRate[index];
+		}
+
+		System.out.printf(
+				"\n**Average MHR is: **" + (sum / (double) numAthletes));
+
+		return sum / (double) numAthletes;
+	}
+
+	// Finds highest MHR value by searching with for loop, then uses value
+	// to indicate index location, display name with index location.
+	public static void findHighestMHR(int numAthletes, int[] maxHeartRate,
+			String[] athleteName)
+	{
+		int highestMHR = 0;
+
+		for (int index = 1; index < numAthletes; index++)
+		{
+			if (maxHeartRate[index] > maxHeartRate[highestMHR])
+			{
+				highestMHR = index;
+			}
+		}
+
+		System.out.printf("\n\n**Athlete with the highest MHR: **");
+		System.out.printf("\n" + athleteName[highestMHR]);
+
+		return;
+	}
+
+	public static void displayAboveAverageMHR(int numAthletes,
+			int[] maxHeartRate, double averageMHR, String[] athleteName)
+	{
+		System.out.printf("\n**Athletes at or above average MHR: **");
+
+		for (int index = 0; index < numAthletes; index++)
+		{
+			if (maxHeartRate[index] >= averageMHR)
+			{
+				System.out.printf(
+						"\n" + athleteName[index] + ": " + maxHeartRate[index]);
+			}
 		}
 	}
 }
