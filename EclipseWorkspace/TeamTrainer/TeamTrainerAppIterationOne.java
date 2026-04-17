@@ -14,8 +14,6 @@
 
 				Calculates percentage of max heart rate for athlete 
 				training goal if needed
-
-
  *    
 
  */
