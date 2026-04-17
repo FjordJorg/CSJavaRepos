@@ -4,7 +4,17 @@
 
  *  Class: CS1050 (T/TH) 
 
- *  Description: 
+ *  Description: The trainer enters how many athletes are on the team.
+                 Then the trainer enters each athlete's weight, height and age.
+				For each athlete, the program calculates BMI and Max Heart Rate.
+				BMI Categories
+				Under 18.5: Underweight
+				18.5 to under 30: Normal
+				30 or greater: High
+
+				Calculates percentage of max heart rate for athlete 
+				training goal if needed
+
 
  *    
 
@@ -15,16 +25,14 @@ import java.util.Scanner;
 public class TeamTrainerAppIterationOne
 {
 	static Scanner input = new Scanner(System.in);
-	/**
-	 * @param args
-	 */
+
 	public static void main(String[] args)
 	{
 		// initialize and declare all constants, variables, and strings in main
-		double sumMHR = 0.0;
 		double averageMHR = 0.0;
-		double highestMHR = 0.0;
 		int numAthletes = 0;
+
+		displayProgramOverview();
 
 		// organizing methods
 		numAthletes = inputNumAthletes(numAthletes);
@@ -34,7 +42,6 @@ public class TeamTrainerAppIterationOne
 		double[] athleteBMI = new double[numAthletes];
 		String[] athleteBMICategory = new String[numAthletes];
 		int[] maxHeartRate = new int[numAthletes];
-		double[] trainingMHR = new double[numAthletes];
 
 		// calling methods and passing arrays to fill data, display data after
 		// calculating BMI/category and MHR.
@@ -53,6 +60,28 @@ public class TeamTrainerAppIterationOne
 		calculateTrainingHeartRate(numAthletes, athleteName, maxHeartRate);
 
 	}
+
+	// Displays program overview
+	public static void displayProgramOverview()
+	{
+		System.out.println("**************************************");
+		System.out.println("Program Overview");
+		System.out.println("**************************************");
+		System.out.println(
+				"The trainer enters how many athletes are on the team.");
+		System.out.println(
+				"Then the trainer enters each athlete's weight, height and age.");
+		System.out.println(
+				"For each athlete, the program calculates BMI and Max Heart Rate.");
+		System.out.println("BMI Categories");
+		System.out.println("Under 18.5: Underweight");
+		System.out.println("18.5 to under 30: Normal");
+		System.out.println("30 or greater: Overweight");
+		System.out.println("Program then calculates percentage of max "
+				+ "heart rate for athlete training goal if needed\n");
+	}
+
+	// validates input data from user for numAthletes
 	public static int inputNumAthletes(int numAthletes)
 	{
 
@@ -62,8 +91,8 @@ public class TeamTrainerAppIterationOne
 
 			while (!input.hasNextInt())
 			{
-				System.out.print(
-						"Error, please enter a valid number for height in inches: ");
+				System.out
+						.print("Error, please enter a number greater than 0: ");
 				input.next();
 			}
 
@@ -71,13 +100,14 @@ public class TeamTrainerAppIterationOne
 			if (numAthletes <= 0)
 			{
 				System.out.println(
-						" Error, please enter a valid number for height in inches: ");
+						" Error, please enter a number greater than 0: ");
 			}
 		} while (numAthletes <= 0);
 
 		return numAthletes;
 	}
 
+	// method asks user to input data for each array for each athlete one by one
 	public static void inputAthleteData(int numAthletes, String[] athleteName,
 			double[] athleteBMI, int[] maxHeartRate)
 
@@ -90,11 +120,14 @@ public class TeamTrainerAppIterationOne
 		double BMI_US_FACTOR = 703;
 		int age = 0;
 
+		// uses for loop to validate each athlete's data one by one
 		for (int index = 0; index < numAthletes; index++)
 		{
 
 			System.out.println(
 					"\nEnter the name for athlete " + (index + 1) + ": ");
+
+			// attempt to validate a string, but might not work
 			while (!input.hasNext())
 			{
 				System.out.print("Error, please enter a valid name for athlete "
@@ -103,6 +136,7 @@ public class TeamTrainerAppIterationOne
 			}
 			athleteName[index] = input.nextLine();
 
+			// do loop to continue until inputs are valid
 			do
 			{
 				System.out.print("Please enter weight in pounds for "
@@ -165,11 +199,12 @@ public class TeamTrainerAppIterationOne
 			} while (age <= 0);
 			maxHeartRate[index] = 220 - age;
 
-			input.nextLine();
+			input.nextLine(); // clears buffer
 		}
 		return;
 	}
 
+	// categorizes BMI using for loop to increment athletes one by one
 	public static void categorizeBMI(int numAthletes, double[] athleteBMI,
 			String[] athleteBMICategory)
 	{
@@ -192,10 +227,15 @@ public class TeamTrainerAppIterationOne
 		}
 
 	}
+
+	// Displays summary of input data and current calculations/arrays
 	public static void displayAthleteData(int numAthletes, String[] athleteName,
 			double[] athleteBMI, int[] maxHeartRate,
 			String[] athleteBMICategory)
 	{
+
+		System.out.println("\n========== Athlete Summary ==========");
+
 		// For loop to print out athletes to make sure arrays are stored
 		// properly and names are printed. Delete once code works.
 		for (int index = 0; index < numAthletes; index++)
@@ -207,9 +247,13 @@ public class TeamTrainerAppIterationOne
 			System.out.printf("\nMHR: " + maxHeartRate[index]);
 		}
 	}
+
+	// displays any athlete found outside normal BMI range
 	public static void displayOutsideNormalBMI(int numAthletes,
 			String[] athleteName, String[] athleteBMICategory)
 	{
+		System.out.println("\n========== BMI Analysis ==========");
+
 		// boolean to break loops early if all athletes are categorized as
 		// normal
 		boolean found = false;
@@ -258,16 +302,19 @@ public class TeamTrainerAppIterationOne
 			int[] maxHeartRate)
 	{
 		double sum = 0.0;
+		double average = 0.0;
+
+		System.out.println("\n========== MHR Analysis ==========");
 
 		for (int index = 0; index < numAthletes; index++)
 		{
 			sum += maxHeartRate[index];
 		}
 
-		System.out.printf(
-				"\n**Average MHR is: " + (sum / (double) numAthletes) + "**");
+		average = sum / (double) numAthletes;
+		System.out.printf("\nAverage Max Heart Rate: %.1f\n", average);
 
-		return sum / (double) numAthletes;
+		return average;
 	}
 
 	// Finds highest MHR value by searching with for loop, then uses value
@@ -286,11 +333,16 @@ public class TeamTrainerAppIterationOne
 		}
 
 		System.out.printf("\n\n**Athlete with the highest MHR: **");
-		System.out.printf("\n" + athleteName[highestMHR]);
+		System.out.printf("\n" + athleteName[highestMHR]
+				+ " has highest max heart rate of: "
+				+ maxHeartRate[highestMHR]);
 
 		return;
 	}
 
+	// method finds and displays any athlete at or above averageMHR value
+	// by using a for loop with nested if to find any value above averageMHR
+	// to display, automatically displays before returning to main
 	public static void displayAboveAverageMHR(int numAthletes,
 			int[] maxHeartRate, double averageMHR, String[] athleteName)
 	{
@@ -306,23 +358,34 @@ public class TeamTrainerAppIterationOne
 		}
 	}
 
+	// method asks if user wants to enter a training percentage, validates
+	// response
+	// if yes, validates percentage is above 0, calculates and displays
+	// if no, thanks user and terminates program
+	// if anything else, displays invalid and asks for y or n.
 	public static void calculateTrainingHeartRate(int numAthletes,
 			String[] athleteName, int[] maxHeartRate)
 	{
+		// to evaluate user response
 		char continueResponse;
 
+		// boolean flag to exit loop if desired conditions are met
 		boolean valid = true;
 
+		// do loop to continue until user enters valid response
 		do
 		{
 			System.out.print(
 					"\nDo you want to calculate the training heart rates? (y/n): ");
-			continueResponse = input.next().toUpperCase().charAt(0);
+			continueResponse = input.next().toUpperCase().charAt(0); // changes
+																		// character
+			// to capital letter, so Y, y, N, n are valid responses
 
 			if (continueResponse == 'Y')
 			{
 				double percentage;
 
+				// do loop to validate percentage value, continues until
 				do
 				{
 					System.out.print("\nEnter training percentage: ");
@@ -346,6 +409,8 @@ public class TeamTrainerAppIterationOne
 
 				input.nextLine(); // clear buffer
 
+				// calculates and displays training heart rate based on
+				// percentage input
 				for (int index = 0; index < numAthletes; index++)
 				{
 					double trainingHR = maxHeartRate[index]
