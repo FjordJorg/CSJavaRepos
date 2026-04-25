@@ -10,60 +10,57 @@ public class CarDealership
 
 	public static void main(String[] args)
 	{
-		System.out.println("Enter make: ");
-		make = input.next();
 
-		System.out.println("Enter model: ");
-		model = input.next();
+		String make = getMake();
+		String model = getModel();
+		double price = getPrice();
 
-		System.out.println("Enter price: ");
-		price = input.nextDouble();
+		Car c1 = new Car(make, model, price);
 
-		class Car
+		c1.displayCarDetails();
+	}
+
+	static class Car
+	{
+		private String make;
+		private String model;
+		private double price;
+
+		public Car(String make, String model, double price)
 		{
-			private String make;
-			private String model;
-			private double price;
-
-			public Car(String make, String model, double price)
-			{
-				this.make = make;
-				this.model = model;
-				this.price = price;
-
-			}
-
-			public String getMake(String make)
-			{
-				make = input.next();
-				return make;
-			}
-
-			public String getModel(String model)
-			{
-				model = input.next();
-				return model;
-			}
-
-			public static double getPrice(double price)
-			{
-				price = input.nextDouble();
-				return price;
-			}
-
-			public static void getCarDetails(String make, String model,
-					double price, int[] totalCars)
-			{
-
-			}
-
-			public void displayCarDetails()
-			{
-				System.out.printf("\nCar details: " + make + "\n " + model
-						+ "\nPrice: " + price);
-			}
+			this.make = make;
+			this.model = model;
+			this.price = price;
 
 		}
+
+		public void displayCarDetails()
+		{
+			System.out.printf("\n***Car details*** \nMake: " + make
+					+ "\nModel: " + model + "\nPrice: $" + price);
+		}
+	}
+
+	public static String getMake()
+	{
+		System.out.println("Enter make: ");
+		String make = input.nextLine();
+		return make;
+	}
+
+	public static String getModel()
+	{
+		System.out.println("Enter model: ");
+		String model = input.nextLine();
+		return model;
+	}
+
+	public static double getPrice()
+	{
+		System.out.println("Enter price: ");
+		double price = input.nextDouble();
+		input.nextLine();
+		return price;
 	}
 
 }
