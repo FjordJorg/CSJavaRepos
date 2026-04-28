@@ -24,6 +24,9 @@ public class CarDealership
 	public static void main(String[] args)
 	{
 
+		// MUST REMOVE INPUT FUNCTIONS
+		// USE MAIN TO TEST AS IF FILE IS BEING READ
+
 		String make = Car.getMake();
 		String model = Car.getModel();
 		double price = Car.getPrice();
@@ -73,8 +76,6 @@ public class CarDealership
 		 */
 		public static String getMake()
 		{
-			System.out.println("Enter make: ");
-			String make = input.nextLine();
 			return make;
 		}
 
@@ -83,8 +84,6 @@ public class CarDealership
 		 */
 		public static String getModel()
 		{
-			System.out.println("Enter model: ");
-			String model = input.nextLine();
 			return model;
 		}
 
