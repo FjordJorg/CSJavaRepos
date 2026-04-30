@@ -45,7 +45,7 @@ public class CarDealership
 		// Testing most expensive algorithm to display
 		Car mostExpensive = dealer1.findMostExpensiveCar();
 
-		System.out.printf("\n-------Most Expensive Landboat -------");
+		System.out.printf("\n======= Most Expensive Landboat =======");
 		mostExpensive.displayCarDetails();
 
 		// Testing display ALL in dealer1 carsInventory array
@@ -53,11 +53,9 @@ public class CarDealership
 	}
 
 	/**
-	 * Creating a static class for Car, setting private attributes. Static class
-	 * allows main to access, private means only the code can access/use the
-	 * variables.
-	 * 
-	 * make, model, price.
+	 * Car class represents a single car with make, model, price Static because
+	 * it is nested within main class Private variables can only be accessed
+	 * within Car class
 	 */
 	static class Car
 	{
@@ -66,7 +64,7 @@ public class CarDealership
 		private String model;
 		private double price;
 
-		// Constructor: used to construct new Cars using specified parameters
+		// Constructors used to initialize a car with make, model, price
 		public Car(String make, String model, double price)
 		{
 			this.make = make;
@@ -84,6 +82,8 @@ public class CarDealership
 		}
 
 		/**
+		 * Initializes make of car
+		 * 
 		 * @return make
 		 */
 		public String getMake()
@@ -92,6 +92,8 @@ public class CarDealership
 		}
 
 		/**
+		 * Initializes model of car
+		 * 
 		 * @return model
 		 */
 		public String getModel()
@@ -100,7 +102,9 @@ public class CarDealership
 		}
 
 		/**
-		 * @return price Validates that number is valid for price
+		 * Initializes price of car
+		 * 
+		 * @return price
 		 * 
 		 */
 		public double getPrice()
@@ -122,8 +126,8 @@ public class CarDealership
 		private int currentNumCars;
 
 		/**
-		 * public Dealership, attains dealership name and max number of cars for
-		 * individual Dealership, creates a carsInventory array for Dealership
+		 * public Dealership initializes dealership name, creates carsInventory
+		 * array, sets current car count to 0.
 		 * 
 		 * @param dealershipName
 		 * @param maxNumCars
@@ -149,7 +153,7 @@ public class CarDealership
 		}
 
 		/**
-		 * Adds new car to carsInventory array
+		 * Adds new car to carsInventory array if there is space available
 		 * 
 		 * @param newCar
 		 */
@@ -171,7 +175,7 @@ public class CarDealership
 		}
 
 		/**
-		 * Finds most expensive car in carsInventory array
+		 * Returns car with the highest price in the carsInventory array
 		 * 
 		 * @return mostExpensiveCar
 		 */
@@ -184,6 +188,7 @@ public class CarDealership
 
 			Car mostExpensiveCar = carsInventory[0];
 
+			// For loop checks each car to find the one with the highest price
 			for (int index = 0; index < currentNumCars; index++)
 			{
 				if (carsInventory[index].getPrice() > mostExpensiveCar
@@ -197,7 +202,7 @@ public class CarDealership
 		}
 
 		/**
-		 * display each individual Cars in full carsInventory array
+		 * Displays all cars currently in carsInventory array
 		 * 
 		 */
 		public void displayCars()
