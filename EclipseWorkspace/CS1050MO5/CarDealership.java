@@ -24,21 +24,32 @@ public class CarDealership
 	public static void main(String[] args)
 	{
 
-		// MUST REMOVE INPUT FUNCTIONS
-		// USE MAIN TO TEST AS IF FILE IS BEING READ
+		// Initializing new cars using Car class, filling constructors with
+		// dummy test info
+		Car car1 = new Car("Big 'Ol", "LandLubber", 27500);
+		Car car2 = new Car("Undrownable", "Skido", 22000);
+		Car car3 = new Car("Titanic", "Bumbler", 36600);
+		Car car4 = new Car("Land House Boat", "Compact", 19300);
+		Car car5 = new Car("Karazy", "Kayak", 12500);
 
-		String make = Car.getMake();
-		String model = Car.getModel();
-		double price = Car.getPrice();
+		// Initializing new dealer using Dealership class, dummy test info
+		Dealership dealer1 = new Dealership("Larry's Luxury Landboats", 5);
 
-		Car car1 = new Car(make, model, price);
+		// Adding cars to Dealership's carsInventory array
+		dealer1.addCar(car1);
+		dealer1.addCar(car2);
+		dealer1.addCar(car3);
+		dealer1.addCar(car4);
+		dealer1.addCar(car5);
 
-		car1.displayCarDetails();
+		// Testing most expensive algorithm to display
+		Car mostExpensive = dealer1.findMostExpensiveCar();
 
-		String dealershipName = Dealership.getDealershipName();
+		System.out.printf("\n-------Most Expensive Landboat -------");
+		mostExpensive.displayCarDetails();
 
-		System.out.println(dealershipName);
-
+		// Testing display ALL in dealer1 carsInventory array
+		dealer1.displayCars();
 	}
 
 	/**
@@ -67,14 +78,15 @@ public class CarDealership
 		// Class method(s)
 		public void displayCarDetails()
 		{
-			System.out.printf("\n***Car details*** \nMake: " + make
-					+ "\nModel: " + model + "\nPrice: $" + price);
+			System.out.printf(
+					"\n***** Car details *****\nMake: %s\nModel: %s\nPrice: $%.2f\n",
+					make, model, price); // Formatted for clean output details
 		}
 
 		/**
 		 * @return make
 		 */
-		public static String getMake()
+		public String getMake()
 		{
 			return make;
 		}
@@ -82,7 +94,7 @@ public class CarDealership
 		/**
 		 * @return model
 		 */
-		public static String getModel()
+		public String getModel()
 		{
 			return model;
 		}
@@ -91,31 +103,16 @@ public class CarDealership
 		 * @return price Validates that number is valid for price
 		 * 
 		 */
-		public static double getPrice()
+		public double getPrice()
 		{
-			System.out.println("Enter price: ");
 
-			while (!input.hasNextDouble())
-			{
-				System.out
-						.print("Error, please enter a number greater than 0: ");
-				input.next();
-			}
-
-			double price = input.nextDouble();
-
-			if (price <= 0)
-			{
-				System.out.println(
-						" Error, please enter a number greater than 0: ");
-			}
-			input.nextLine();
 			return price;
 		}
 	} // End of Car Class
 
 	/**
-	 * 
+	 * New class Dealership, private parameters to set name, current number of
+	 * cars, initialize an array to add cars to its inventory
 	 */
 	static class Dealership
 	{
@@ -124,22 +121,38 @@ public class CarDealership
 		private Car[] carsInventory;
 		private int currentNumCars;
 
-		// Constructor
+		/**
+		 * public Dealership, attains dealership name and max number of cars for
+		 * individual Dealership, creates a carsInventory array for Dealership
+		 * 
+		 * @param dealershipName
+		 * @param maxNumCars
+		 */
 		public Dealership(String dealershipName, int maxNumCars)
 		{
+			// Constructors
 			this.dealershipName = dealershipName;
 			this.carsInventory = new Car[maxNumCars];
 			this.currentNumCars = 0;
 		}
 
 		// Class methods
-		public static String getDealershipName()
+
+		/**
+		 * getter, gets Dealership Name
+		 * 
+		 * @return
+		 */
+		public String getDealershipName()
 		{
-			System.out.printf("\nEnter Dealership Name: ");
-			String dealershipName = input.nextLine();
 			return dealershipName;
 		}
 
+		/**
+		 * Adds new car to carsInventory array
+		 * 
+		 * @param newCar
+		 */
 		public void addCar(Car newCar)
 		{
 
@@ -155,6 +168,50 @@ public class CarDealership
 				System.out.println("Inventory full, cannot add new cars. ");
 			}
 
+		}
+
+		/**
+		 * Finds most expensive car in carsInventory array
+		 * 
+		 * @return mostExpensiveCar
+		 */
+		public Car findMostExpensiveCar()
+		{
+			if (currentNumCars == 0)
+			{
+				return null;
+			}
+
+			Car mostExpensiveCar = carsInventory[0];
+
+			for (int index = 0; index < currentNumCars; index++)
+			{
+				if (carsInventory[index].getPrice() > mostExpensiveCar
+						.getPrice())
+				{
+					mostExpensiveCar = carsInventory[index];
+				}
+			}
+
+			return mostExpensiveCar;
+		}
+
+		/**
+		 * display each individual Cars in full carsInventory array
+		 * 
+		 */
+		public void displayCars()
+		{
+			System.out.printf(
+					"\n======== " + dealershipName + " Inventory ========\n");
+			System.out
+					.println("Current Number of Landboats: " + currentNumCars);
+
+			for (int index = 0; index < currentNumCars; index++)
+			{
+				carsInventory[index].displayCarDetails();
+				System.out.println("_________________________");
+			}
 		}
 
 	} // End of Dealership Class
