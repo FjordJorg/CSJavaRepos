@@ -7,77 +7,85 @@
  *  Car class will take make, model, and price. Dealership can enter a name, 
  *  be able to add multiple Cars to an array that the Dealership class stores,
  *  where various methods can display the most expensive car, current number of cars,
- *  add cars, and write a list of cars from a file. 
+ *  add cars, and can read a list of cars from a file. 
  */
 
-import java.io.File; // Path and metadata of a file/folder
-import java.io.FileNotFoundException; // Exception to catch file not found
-import java.io.IOException; // Exception to catch input/output failure
-import java.io.PrintWriter; // Used to write formatted text to a destination
-import java.util.Scanner; // Used to read and parse text from keyboard or file
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
-public class CarDealership
+public class DealershipTest
 {
 	static Scanner input = new Scanner(System.in);
 
 	/**
-	 * @param args
+	 * Main tests the reading of files and will display them all, making sure
+	 * each method works properly.
 	 * 
-	 *            Main method to call and test Car & Dealership classes.
+	 * @param args
 	 */
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args)
 	{
-
-		// Initializing new cars using Car class, filling constructors with
-		// dummy test info
-		Car car1 = new Car("Big'Ol", "LandLubber", 27500);
-		Car car2 = new Car("Undrownable", "Skido", 22000);
-		Car car3 = new Car("Titanic", "Bumbler", 36600);
-		Car car4 = new Car("LandHouseBoat", "Compact", 19300);
-		Car car5 = new Car("Karazy", "Kayak", 12500);
-
-		// Initializing new dealer using Dealership class, dummy test info
-		Dealership dealer1 = new Dealership("Larrys_Luxury_Landboats", 5);
-
-		// Adding cars to Dealership's carsInventory array
-		dealer1.addCar(car1);
-		dealer1.addCar(car2);
-		dealer1.addCar(car3);
-		dealer1.addCar(car4);
-		dealer1.addCar(car5);
-
-		// Testing most expensive algorithm to display
-		Car mostExpensive = dealer1.findMostExpensiveCar();
-
-		System.out.printf("\n======= Most Expensive Landboat =======");
-		mostExpensive.displayCarDetails();
-
-		// Testing display ALL in dealer1 carsInventory array
-		dealer1.displayCars();
-
-		// Attempt at creating file
+		displayProgramSummary();
+		String fileName = "Larrys_Luxury_Landboats.txt"; // Change to
+															// "cars2.txt" to
+															// test cars2.txt
+		// Trying "Larrys_Luxury_Landboats.txt"
 
 		try
 		{
-			dealer1.writeCarsToFile("Larrys_Luxury_Landboats.txt");
+			System.out.println("\nTesting file: " + fileName);
+			Dealership dealership = new Dealership("CS Dealership", 6);
+
+			dealershipSetUp(fileName, dealership);
+
+			dealership.displayCars();
+
+			System.out.println("\nMost Expensive Car:");
+			Car mostExpensive = dealership.findMostExpensiveCar();
+			mostExpensive.displayCarDetails();
+
+			String outputFileName = dealership.getDealershipName() + ".txt";
+			dealership.writeCarsToFile(outputFileName);
+
 		} catch (FileNotFoundException exception)
 		{
-			System.out.println("Error: Unable to find file ");
+			System.out.println("Error: Unable to find file " + fileName);
 		}
 
-	}
+		System.out.println("\nEnd of program");
 
-	public static void dealershipSetUp(String fileName, Dealership dealer1)
+	} // End of Main
+
+	public static void dealershipSetUp(String fileName,
+			Dealership newDealership) throws FileNotFoundException
 	{
-		// Empty, thought I needed this method for Dealership: Professor
-		// adds these in DealershipTest from lectures in separate Java file
-	}
+		File inputFile = new File(fileName);
+		Scanner fileScanner = new Scanner(inputFile);
+
+		while (fileScanner.hasNext())
+		{
+			String make = fileScanner.next();
+			String model = fileScanner.next();
+			double price = fileScanner.nextDouble();
+			Car car = new Car(make, model, price);
+			newDealership.addCar(car);
+		}
+
+		fileScanner.close();
+	} // End of dealershipSetUp
 
 	public static void displayProgramSummary()
 	{
-		// Empty, thought I needed this method for Dealership: Professor
-		// adds these in DealershipTest from lectures in separate Java file
-	}
+		System.out.println("**************************************");
+		System.out.println("Dealership and Car Analysis");
+		System.out.println("**************************************");
+		System.out.println("Reads car data from a file");
+		System.out.println("Displays all cars");
+		System.out.println("Finds most expensive car");
+		System.out.println();
+	} // end displayProgramSummary
 
 	/**
 	 * Car class represents a single car with make, model, price. Static because
@@ -94,19 +102,13 @@ public class CarDealership
 		// Constructors used to initialize a car with make, model, price
 		public Car(String make, String model, double price)
 		{
-			this.make = make; // This refers to current instance. make refers to
-			this.model = model; // local parameter passed into constructor.
-								// this.make
-			this.price = price; // refers to instance variable belonging to the
-								// object
+			this.make = make;
+			this.model = model;
+			this.price = price;
 
 		}
 
 		// Class method(s)
-		/**
-		 * Displays formatted Car details as Make: make Model: model Price: $
-		 * price.00
-		 */
 		public void displayCarDetails()
 		{
 			System.out.printf(
@@ -253,9 +255,9 @@ public class CarDealership
 		}
 
 		/**
-		 * Creates new file, can write dealership name on file with deletion of
-		 * //, loops to write car details from carsInventory array in form: make
-		 * model price. Then displays file path. Should handle exceptions.
+		 * Creates new file, writes dealership name on file, loops to write car
+		 * details from carsInventory array in form: make,model,price. (no
+		 * spaces) Then displays file path. Should handle exceptions.
 		 * 
 		 * @param outputFileName
 		 * @throws FileNotFoundException
@@ -269,7 +271,7 @@ public class CarDealership
 			PrintWriter fileWriter = new PrintWriter(outputFile);
 
 			// Write dealership name onto file
-			// fileWriter.println(dealershipName);
+			fileWriter.println(dealershipName);
 
 			// For loop writes each car details onto file, separates with comma
 			// Will list as make,model,price in file
@@ -281,7 +283,7 @@ public class CarDealership
 						+ car.getPrice());
 			}
 
-			fileWriter.close(); // Always close stream, like input.close
+			fileWriter.close();
 
 			// Prints file path for convenience
 			System.out.println(
@@ -290,4 +292,4 @@ public class CarDealership
 
 	} // End of Dealership Class
 
-}
+} // End program
