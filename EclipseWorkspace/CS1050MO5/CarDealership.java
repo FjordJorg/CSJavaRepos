@@ -271,8 +271,8 @@ public class CarDealership
 			// Write dealership name onto file
 			// fileWriter.println(dealershipName);
 
-			// For loop writes each car details onto file, separates with comma
-			// Will list as make,model,price in file
+			// For loop writes each car details onto file, separates with single space
+			// Will list as make model price in file
 			for (int index = 0; index < currentNumCars; index++)
 			{
 				Car car = carsInventory[index];
