@@ -1,0 +1,6 @@
+Larry's Luxury Landboats
+Big 'Ol,LandLubber,27500.0
+Undrownable,Skido,22000.0
+Titanic,Bumbler,36600.0
+Land House Boat,Compact,19300.0
+Karazy,Kayak,12500.0

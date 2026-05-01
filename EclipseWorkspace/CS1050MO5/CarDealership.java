@@ -10,6 +10,10 @@
  *  add cars, and eventually read/write a list of cars from a file. 
  */
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class CarDealership
@@ -21,7 +25,7 @@ public class CarDealership
 	 * 
 	 *            Main method to call and test Car & Dealership classes.
 	 */
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 
 		// Initializing new cars using Car class, filling constructors with
@@ -50,12 +54,33 @@ public class CarDealership
 
 		// Testing display ALL in dealer1 carsInventory array
 		dealer1.displayCars();
+
+		// Attempt at creating file
+
+		try
+		{
+			dealer1.writeCarsToFile("Larrys_Luxury_Landboats.txt");
+		} catch (FileNotFoundException exception)
+		{
+			System.out.println("Error: Unable to find file ");
+		}
+
+	}
+
+	public static void dealershipSetUp(String fileName, Dealership dealer1)
+	{
+
+	}
+
+	public static void displayProgramSummary()
+	{
+
 	}
 
 	/**
-	 * Car class represents a single car with make, model, price Static because
-	 * it is nested within main class Private variables can only be accessed
-	 * within Car class
+	 * Car class represents a single car with make, model, price. Static because
+	 * it is nested within main class. Private variables can only be accessed
+	 * within Car class.
 	 */
 	static class Car
 	{
@@ -217,6 +242,42 @@ public class CarDealership
 				carsInventory[index].displayCarDetails();
 				System.out.println("_________________________");
 			}
+		}
+
+		/**
+		 * Creates new file, writes dealership name on file, loops to write car
+		 * details from carsInventory array in form: make,model,price. (no
+		 * spaces) Then displays file path. Should handle exceptions.
+		 * 
+		 * @param outputFileName
+		 * @throws FileNotFoundException
+		 */
+		public void writeCarsToFile(String outputFileName)
+				throws FileNotFoundException
+		{
+
+			// Create new file
+			File outputFile = new File(outputFileName);
+			PrintWriter fileWriter = new PrintWriter(outputFile);
+
+			// Write dealership name onto file
+			fileWriter.println(dealershipName);
+
+			// For loop writes each car details onto file, separates with comma
+			// Will list as make,model,price in file
+			for (int index = 0; index < currentNumCars; index++)
+			{
+				Car car = carsInventory[index];
+
+				fileWriter.println(car.getMake() + "," + car.getModel() + ","
+						+ car.getPrice());
+			}
+
+			fileWriter.close();
+
+			// Prints file path for convenience
+			System.out.println(
+					"Data written to file: " + outputFile.getAbsolutePath());
 		}
 
 	} // End of Dealership Class
