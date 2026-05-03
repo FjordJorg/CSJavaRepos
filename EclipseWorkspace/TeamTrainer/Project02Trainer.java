@@ -15,6 +15,7 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Project02Trainer
@@ -49,8 +50,10 @@ public class Project02Trainer
 		{
 			System.out.println("\nTesting file: " + fileName);
 
-			Team team = new Team("Team CS", 4); // Was originally 4,
-			// caused error, changed to 5
+			Team team = new Team("Team CS", 4); // 5 listed, could change
+			// To 5 to resolve error. I'm assuming this is so that the file
+			// matches
+			// The expected output for the Sample output.
 
 			teamSetUp(fileName, team);
 
@@ -122,8 +125,8 @@ public class Project02Trainer
 // ================= ADD ATHLETE CLASS =================
 
 /**
- * Athlete Superclass serves as a blueprint for creating athlete objects.
- * Represents an athlete with attributes: name, weight, height, and age.
+ * Athlete class serves as a blueprint for creating athlete objects. Represents
+ * a single athlete with attributes: name, weight, height, and age.
  */
 class Athlete
 {
@@ -135,16 +138,12 @@ class Athlete
 
 	/**
 	 * Athlete constructors constructs a new athlete instance with these
-	 * specified details.
+	 * details: name, weight, height, and age.
 	 * 
 	 * @param name
-	 *            Athlete's first name
 	 * @param weight
-	 *            Athlete's weight in pounds
 	 * @param height
-	 *            Athlete's height in inches
 	 * @param age
-	 *            Athlete's age
 	 */
 	public Athlete(String name, double weight, double height, int age)
 	{
@@ -156,7 +155,7 @@ class Athlete
 
 	// Class methods
 	/**
-	 * Getter assigns name to athlete instance
+	 * Getter returns the athlete's name
 	 * 
 	 * @return name
 	 */
@@ -166,7 +165,7 @@ class Athlete
 	}
 
 	/**
-	 * Getter assigns height to athlete instance
+	 * Getter returns the athlete's height
 	 * 
 	 * @return height
 	 */
@@ -231,8 +230,12 @@ class Athlete
 	{
 		double bmi = calculateBMI();
 
+		// \n new line
+		// %s String
+		// %.2f second decimal place
+		// %d integer
 		System.out.printf(
-				"\nName: %s\nBMI: %.2f\nBMI category: %s\nMax Heart Rate: %s",
+				"\nName: %s\nBMI: %.2f\nBMI category: %s\nMax Heart Rate: %d",
 				name, bmi, determineBMICategory(bmi), calculateMaxHeartRate());
 	}
 } // End of Athlete class
@@ -258,9 +261,7 @@ class Team
 	 * details.
 	 * 
 	 * @param teamName
-	 *            Name of Sports team
 	 * @param maxAthletes
-	 *            Number of Athletes on team
 	 */
 	public Team(String teamName, int maxAthletes)
 	{
@@ -271,7 +272,7 @@ class Team
 
 	// Class methods
 	/**
-	 * Getter assigns teamName to Team instance object
+	 * Getter assigns team name to Team instance object
 	 * 
 	 * @return teamName
 	 */
@@ -304,8 +305,7 @@ class Team
 			athleteCount++;
 		} else
 		{
-			System.out.println(
-					"Team Roster Full. Can't add " + athlete.getName());
+			System.out.println("Team is Full. Can't add " + athlete.getName());
 		}
 
 	} // End addAthlete
@@ -334,13 +334,17 @@ class Team
 	 */
 	public void displayAthletesOutsideNormalBMI()
 	{
-		boolean found = false;
+		boolean found = false;// flagged so that if all athletes are normal,
+		// program acknowledges
 		System.out.printf("\nAthletes Outside Normal BMI Range: \n");
 
+		// Use athleteCount instead of athletes.length
 		for (int index = 0; index < athleteCount; index++)
 		{
-			double bmi = athletes[index].calculateBMI();
-			String name = athletes[index].getName();
+			double bmi = athletes[index].calculateBMI();// track bmi for indexed
+			// athlete during loop
+			String name = athletes[index].getName();// track name for indexed
+			// athlete during loop
 
 			if (bmi >= 25.0)
 			{
@@ -352,11 +356,11 @@ class Team
 				found = true;
 			}
 
-			if (!found)
-			{
-				System.out.println(
-						"All athletes are within the normal BMI range.");
-			}
+		}
+
+		if (!found)// flag if all athletes are in normal BMI category
+		{
+			System.out.println("All athletes are within the normal BMI range.");
 		}
 
 	}
@@ -373,7 +377,7 @@ class Team
 		double sum = 0.0;
 		double avg = 0.0;
 
-		for (int index = 0; index < athletes.length; index++)
+		for (int index = 0; index < athleteCount; index++)
 		{
 			sum += athletes[index].calculateMaxHeartRate();
 		}
@@ -382,11 +386,17 @@ class Team
 		return avg;
 	}
 
+	/**
+	 * Method compares max heart rate of each athlete in athletes[] array to the
+	 * average max heart rate and displays all athlete name(s) above average.
+	 * 
+	 * @param avg
+	 */
 	public void displayAthletesAboveAverageMHR(double avg)
 	{
 		System.out.printf("\nAthletes above or equal to average MHR: \n");
 
-		for (int index = 0; index < athletes.length; index++)
+		for (int index = 0; index < athleteCount; index++)
 		{
 			int maxHeartRate = athletes[index].calculateMaxHeartRate();
 
@@ -397,18 +407,113 @@ class Team
 		}
 	}
 
+	/**
+	 * Method uses for loop to find highest max heart rate in athletes[] array
+	 * and displays name of athlete with their max heart rate value.
+	 */
 	public void displayHighestMHR()
 	{
+		System.out.printf("\nHighest Max Heart Rate: \n");
+
+		int max = athletes[0].calculateMaxHeartRate();// max initialized to
+														// track
+		// highest heart rate value
+		int highestIndex = 0;// highestIndex to track index location to display
+		// athlete name below
+
+		for (int index = 0; index < athleteCount; index++)
+		{
+			int currentHeighest = athletes[index].calculateMaxHeartRate();
+
+			if (currentHeighest > max)
+			{
+				max = currentHeighest;
+				highestIndex = index;
+			}
+
+		}
+
+		System.out.printf(athletes[highestIndex].getName() + ": " + max + "\n");
 
 	}
 
+	/**
+	 * Method uses for loop and an index for shortest and an index for tallest
+	 * to find the shortest and tallest athletes in athletes[] array, then
+	 * displays shortest, and displays tallest.
+	 */
 	public void displaySmallestLargestHeight()
 	{
+		double tallest = athletes[0].getHeight();
+		int tallestIndex = 0;
+		double shortest = athletes[0].getHeight();
+		int shortestIndex = 0;
 
+		for (int index = 0; index < athleteCount; index++)
+		{
+			double currentHeight = athletes[index].getHeight();
+
+			if (currentHeight > tallest)
+			{
+				tallest = currentHeight;
+				tallestIndex = index;
+			}
+
+			if (currentHeight < shortest)
+			{
+				shortest = currentHeight;
+				shortestIndex = index;
+			}
+		}
+
+		System.out.printf("\nShortest Athlete: %s %.0f inches",
+				athletes[shortestIndex].getName(),
+				athletes[shortestIndex].getHeight());
+
+		System.out.printf("\nTallest Athlete: %s %.0f inches\n",
+				athletes[tallestIndex].getName(),
+				athletes[tallestIndex].getHeight());
 	}
 
+	/**
+	 * Method Writes output to a file named [team name].txt in same directory as
+	 * the java file. It then displays the location of the file. Writes in the
+	 * following format with each section on a new line: Team: [team name] Total
+	 * Athletes:[number of athletes] [Athlete name] BMI: [BMI to 2 decimal
+	 * places] Category: [BMI Category] MHR [MHR]
+	 * 
+	 * @param fileName
+	 * @throws FileNotFoundException
+	 */
 	public void writeAthletesToFile(String fileName)
+			throws FileNotFoundException
 	{
+		File outputFile = new File(fileName);
+		PrintWriter fileWriter = new PrintWriter(outputFile);
 
+		fileWriter.printf(
+				"Team: " + teamName + "\nTotal Athletes: " + athleteCount);
+		fileWriter.println(); // added lines between team and athletes
+		// for file readability, delete to match acceptance cripteria exactly
+
+		for (int index = 0; index < athleteCount; index++)
+		{
+			Athlete athlete = athletes[index];// allows athlete to be called
+			// within loop
+			double bmi = athletes[index].calculateBMI();
+
+			fileWriter.printf("\n%s\nBMI: %.2f\nCategory: %s\nMHR: %d\n",
+					athlete.getName(), bmi, athlete.determineBMICategory(bmi),
+					athlete.calculateMaxHeartRate());// added lines between
+														// athletes
+			// for file readability, delete first \n to match acceptance
+			// criteria exactly
+		}
+
+		fileWriter.close();
+
+		// Prints file path for convenience
+		System.out.println(
+				"\nResults written to file: " + outputFile.getAbsolutePath());
 	}
 } // End of Team class
