@@ -121,15 +121,31 @@ public class Project02Trainer
 
 // ================= ADD ATHLETE CLASS =================
 
+/**
+ * Athlete Superclass serves as a blueprint for creating athlete objects.
+ * Represents an athlete with attributes: name, weight, height, and age.
+ */
 class Athlete
 {
-	// Attributes
+	// Private attributes to ensure encapsulation
 	private String name;
 	private double weight;
 	private double height;
 	private int age;
 
-	// Constructors
+	/**
+	 * Athlete constructors constructs a new athlete instance with these
+	 * specified details.
+	 * 
+	 * @param name
+	 *            Athlete's first name
+	 * @param weight
+	 *            Athlete's weight in pounds
+	 * @param height
+	 *            Athlete's height in inches
+	 * @param age
+	 *            Athlete's age
+	 */
 	public Athlete(String name, double weight, double height, int age)
 	{
 		this.name = name;
@@ -139,21 +155,32 @@ class Athlete
 	}
 
 	// Class methods
+	/**
+	 * Getter assigns name to athlete instance
+	 * 
+	 * @return name
+	 */
 	String getName()
 	{
 		return name;
 	}
 
+	/**
+	 * Getter assigns height to athlete instance
+	 * 
+	 * @return height
+	 */
 	public double getHeight()
 	{
 		return height;
 	}
 
-	public int getAge()
-	{
-		return age;
-	}
-
+	/**
+	 * Method calculates BMI using US CDC BMI calculation index weight * 703(BMI
+	 * US Factor) / (height * height)
+	 * 
+	 * @return bmi
+	 */
 	public double calculateBMI()
 	{
 		double BMI_US_FACTOR = 703;
@@ -161,6 +188,13 @@ class Athlete
 		return bmi;
 	}// End calculateBMI
 
+	/**
+	 * Method determines BMI Category based on US CDC BMI Calculation index
+	 * categories
+	 * 
+	 * @param bmi
+	 * @return Category (Underweight, Normal, Overweight, Obese)
+	 */
 	public String determineBMICategory(double bmi)
 	{
 		if (bmi < 18.5)
@@ -178,13 +212,21 @@ class Athlete
 		}
 	}// End determineBMICategory
 
+	/**
+	 * Method calculates max heart rate using formula 220 - age
+	 * 
+	 * @return maxHeartRate
+	 */
 	public int calculateMaxHeartRate()
 	{
 		int maxHeartRate = 220 - age;
 		return maxHeartRate;
 	}
 
-	// Displays the athlete’s name, BMI, BMI category, max heart rate.
+	/**
+	 * Method displays the athlete’s name, BMI, BMI category, max heart rate.
+	 * 
+	 */
 	public void displayAthleteAnalysis()
 	{
 		double bmi = calculateBMI();
@@ -197,6 +239,12 @@ class Athlete
 
 // ================= ADD TEAM CLASS =================
 
+/**
+ * Team superclass serves as a blueprint for creating team objects. Represents a
+ * team with these attributes: team name, array of athletes in team,
+ * athleteCount as number of athlete objects in athlete array.
+ * 
+ */
 class Team
 {
 	// Attributes
@@ -205,6 +253,15 @@ class Team
 	private int athleteCount;
 
 	// Constructors
+	/**
+	 * Team constructors constructs a new athlete instance with these specified
+	 * details.
+	 * 
+	 * @param teamName
+	 *            Name of Sports team
+	 * @param maxAthletes
+	 *            Number of Athletes on team
+	 */
 	public Team(String teamName, int maxAthletes)
 	{
 		this.teamName = teamName;
@@ -213,16 +270,32 @@ class Team
 	}
 
 	// Class methods
+	/**
+	 * Getter assigns teamName to Team instance object
+	 * 
+	 * @return teamName
+	 */
 	public String getTeamName()
 	{
 		return teamName;
 	}
 
+	/**
+	 * Getter assigns athleteCount to Team instance object
+	 * 
+	 * @return athleteCount
+	 */
 	public int getAthleteCount()
 	{
 		return athleteCount;
 	}
 
+	/**
+	 * Method adds new athlete instance object to athletes[] array as long as
+	 * the athleteCount is equal to or less than maxAthletes
+	 * 
+	 * @param athlete
+	 */
 	public void addAthlete(Athlete athlete)
 	{
 		if (athleteCount < athletes.length)
@@ -237,22 +310,64 @@ class Team
 
 	} // End addAthlete
 
+	/**
+	 * Method calls displayAthleteAnalysis method to display the name, bmi, bmi
+	 * category, and max heart rate of each athlete object in athlete[] array
+	 */
 	public void displayAthleteResults()
 	{
 		System.out.printf("\n***** Athlete details *****\n");
 
-		for (int index = 0; index < athletes.length; index++)
+		for (int index = 0; index < athleteCount; index++)
 		{
 			athletes[index].displayAthleteAnalysis();
 			System.out.println();
 		}
 	}
 
+	/**
+	 * Method calls calculateBMI to categorize bmi for each athlete instance in
+	 * athlete[] array to display any athlete above or below the normal bmi
+	 * range 18.5 to 25.0. If all athletes are in normal range, displays All
+	 * athletes are within the normal BMI range.
+	 * 
+	 */
 	public void displayAthletesOutsideNormalBMI()
 	{
+		boolean found = false;
+		System.out.printf("\nAthletes Outside Normal BMI Range: \n");
+
+		for (int index = 0; index < athleteCount; index++)
+		{
+			double bmi = athletes[index].calculateBMI();
+			String name = athletes[index].getName();
+
+			if (bmi >= 25.0)
+			{
+				System.out.println("Above Normal: " + name);
+				found = true;
+			} else if (bmi < 18.5)
+			{
+				System.out.println("Below Normal: " + name);
+				found = true;
+			}
+
+			if (!found)
+			{
+				System.out.println(
+						"All athletes are within the normal BMI range.");
+			}
+		}
 
 	}
 
+	/**
+	 * Method calculates average max heart rate of athlete[] array using indexed
+	 * for loop to accumulate the sum of each athletes' heart rate, and dividing
+	 * the sum by athleteCount.
+	 * 
+	 * @return avg
+	 */
 	public double calculateAverageMaxHeartRate()
 	{
 		double sum = 0.0;
@@ -269,7 +384,17 @@ class Team
 
 	public void displayAthletesAboveAverageMHR(double avg)
 	{
+		System.out.printf("\nAthletes above or equal to average MHR: \n");
 
+		for (int index = 0; index < athletes.length; index++)
+		{
+			int maxHeartRate = athletes[index].calculateMaxHeartRate();
+
+			if (maxHeartRate >= avg)
+			{
+				System.out.println(athletes[index].getName());
+			}
+		}
 	}
 
 	public void displayHighestMHR()
