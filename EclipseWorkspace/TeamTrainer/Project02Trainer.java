@@ -13,6 +13,10 @@
  *    
  */
 
+// A File object identifies the target file.
+// A Scanner or PrintWriter is initialized using that File to read or write data.
+// Java requires you to handle a potential FileNotFoundException using a 
+// try-catch block or a throws declaration.
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -27,6 +31,7 @@ public class Project02Trainer
 		// ===== TEST 1 =====
 		String fileName = "team1.txt"; // Can't find file anywhere,
 		// assumed to be for grade/testing
+		// Initializes fileName to pass to teamSetUp below
 
 		try
 		{
@@ -45,47 +50,79 @@ public class Project02Trainer
 
 		// ===== TEST 2 =====
 		fileName = "team2.txt";// File has 5 athletes listed
+		// Updated fileName allows for second file to be written
+		// for a second team 'Team CS' below
 
 		try
 		{
 			System.out.println("\nTesting file: " + fileName);
 
+			// Initialize Team object, hardcoded size to match specific sample
+			// outputs
 			Team team = new Team("Team CS", 4); // 5 listed, could change
 			// To 5 to resolve error. I'm assuming this is so that the file
-			// matches
-			// The expected output for the Sample output.
+			// matches the expected output for the Sample output.
 
+			// Attempt to read data and analyze it
 			teamSetUp(fileName, team);
 
 			runAnalysis(team);
 
-		} catch (FileNotFoundException exception)
+		} catch (FileNotFoundException exception)// handles missing files
+													// instead of crashing
 		{
+
 			System.out.println("Error: Unable to find file " + fileName);
 		}
 
 		System.out.println("\nEnd of program");
 	}
 
+	/**
+	 * Method reads athlete data from a file and adds them to a specified Team.
+	 * Method requires team name, max number of athletes, and the fileName (ex:
+	 * team2.txt above).
+	 * 
+	 * @param fileName
+	 * @param team
+	 * @throws FileNotFoundException
+	 */
 	public static void teamSetUp(String fileName, Team team)
-			throws FileNotFoundException
+			throws FileNotFoundException// throws FileNotFoundException
+	// If the specified file cannot be located
 	{
+		// Initialize the file and a scanner to read its content
 		File inputFile = new File(fileName);
 		Scanner fileScanner = new Scanner(inputFile);
 
+		// Continue reading as long as there is more data in the file
 		while (fileScanner.hasNext())
 		{
+			// Read the four required attributes for an athlete
 			String name = fileScanner.next();
 			double weight = fileScanner.nextDouble();
 			double height = fileScanner.nextDouble();
 			int age = fileScanner.nextInt();
+
+			// Create a new Athlete object and add it to the team athletes[]
+			// array
 			Athlete athlete = new Athlete(name, weight, height, age);
 			team.addAthlete(athlete);
 		}
 
+		// Close the scanner to prevent memory leaks
 		fileScanner.close();
 	}
 
+	/**
+	 * Method prints a summary of team and athlete data to the console,
+	 * calculates average max heart rates, displays (BMI, heart rate), and
+	 * writes this data to a text file named after the team, potentially
+	 * throwing a FileNotFoundException
+	 * 
+	 * @param team
+	 * @throws FileNotFoundException
+	 */
 	public static void runAnalysis(Team team) throws FileNotFoundException
 	{
 		System.out.println("\n========== Team Analysis ==========");
@@ -102,13 +139,21 @@ public class Project02Trainer
 		team.displayAthletesAboveAverageMHR(avg);
 		team.displayHighestMHR();
 		team.displaySmallestLargestHeight();
+
+		// Writes fileName as the teamName
 		String outputFileName = team.getTeamName() + ".txt";
+		// Calls method to write all athletes in athletes[] array to
+		// updated fileName
 		team.writeAthletesToFile(outputFileName);
 
 	}
 
 	// ================= DISPLAY =================
 
+	/**
+	 * Method displays header message to console output describing program's
+	 * functions
+	 */
 	public static void displayProgramSummary()
 	{
 		System.out.println("**************************************");
@@ -127,6 +172,7 @@ public class Project02Trainer
 /**
  * Athlete class serves as a blueprint for creating athlete objects. Represents
  * a single athlete with attributes: name, weight, height, and age.
+ * 
  */
 class Athlete
 {
@@ -175,8 +221,8 @@ class Athlete
 	}
 
 	/**
-	 * Method calculates BMI using US CDC BMI calculation index weight * 703(BMI
-	 * US Factor) / (height * height)
+	 * Method calculates BMI using US CDC BMI calculation index: weight *
+	 * 703(BMI US Factor) / (height * height)
 	 * 
 	 * @return bmi
 	 */
@@ -188,8 +234,10 @@ class Athlete
 	}// End calculateBMI
 
 	/**
-	 * Method determines BMI Category based on US CDC BMI Calculation index
-	 * categories
+	 * Method determines and returns BMI Category based on US CDC BMI
+	 * Calculation index categories: Underweight is below 18.5, Normal is 18.5
+	 * to less than 25.0, Overweight is 25.0 to less than 30.0, Obese is 30.0 or
+	 * higher
 	 * 
 	 * @param bmi
 	 * @return Category (Underweight, Normal, Overweight, Obese)
@@ -212,7 +260,7 @@ class Athlete
 	}// End determineBMICategory
 
 	/**
-	 * Method calculates max heart rate using formula 220 - age
+	 * Method calculates and returns max heart rate using formula 220 - age
 	 * 
 	 * @return maxHeartRate
 	 */
@@ -243,9 +291,9 @@ class Athlete
 // ================= ADD TEAM CLASS =================
 
 /**
- * Team superclass serves as a blueprint for creating team objects. Represents a
- * team with these attributes: team name, array of athletes in team,
- * athleteCount as number of athlete objects in athlete array.
+ * Team class serves as a blueprint for creating team objects. Represents a team
+ * with these attributes: team name, array of athletes in team, athleteCount as
+ * number of athlete objects in athlete array.
  * 
  */
 class Team
@@ -257,8 +305,11 @@ class Team
 
 	// Constructors
 	/**
-	 * Team constructors constructs a new athlete instance with these specified
-	 * details.
+	 * Team constructors construct a new team instance with these specified
+	 * details: teamName (name of team), athletes[] array initialized to
+	 * maxAthletes value, athleteCount initialized to 0. maxAthletes determines
+	 * maximum size of array, athleteCount represents number of athletes added
+	 * to the array.
 	 * 
 	 * @param teamName
 	 * @param maxAthletes
@@ -272,7 +323,7 @@ class Team
 
 	// Class methods
 	/**
-	 * Getter assigns team name to Team instance object
+	 * Getter returns team name to Team instance object
 	 * 
 	 * @return teamName
 	 */
@@ -282,7 +333,7 @@ class Team
 	}
 
 	/**
-	 * Getter assigns athleteCount to Team instance object
+	 * Getter returns athleteCount to Team instance object
 	 * 
 	 * @return athleteCount
 	 */
@@ -293,7 +344,7 @@ class Team
 
 	/**
 	 * Method adds new athlete instance object to athletes[] array as long as
-	 * the athleteCount is equal to or less than maxAthletes
+	 * the athleteCount is less than or equal to maxAthletes
 	 * 
 	 * @param athlete
 	 */
@@ -312,7 +363,7 @@ class Team
 
 	/**
 	 * Method calls displayAthleteAnalysis method to display the name, bmi, bmi
-	 * category, and max heart rate of each athlete object in athlete[] array
+	 * category, and max heart rate for each athlete object in athlete[] array
 	 */
 	public void displayAthleteResults()
 	{
@@ -326,10 +377,10 @@ class Team
 	}
 
 	/**
-	 * Method calls calculateBMI to categorize bmi for each athlete instance in
-	 * athlete[] array to display any athlete above or below the normal bmi
-	 * range 18.5 to 25.0. If all athletes are in normal range, displays All
-	 * athletes are within the normal BMI range.
+	 * Method calls calculateBMI to return bmi to categorize each athlete
+	 * instance in athlete[] array to display any athlete above or below the
+	 * normal bmi range 18.5 to 25.0. If all athletes are in normal range,
+	 * displays All athletes are within the normal BMI range.
 	 * 
 	 */
 	public void displayAthletesOutsideNormalBMI()
@@ -366,9 +417,9 @@ class Team
 	}
 
 	/**
-	 * Method calculates average max heart rate of athlete[] array using indexed
-	 * for loop to accumulate the sum of each athletes' heart rate, and dividing
-	 * the sum by athleteCount.
+	 * Method calculates and returns average max heart rate of athlete[] array
+	 * using indexed for loop to accumulate the sum of each athletes' heart
+	 * rate, and dividing the sum by athleteCount to attain and return average.
 	 * 
 	 * @return avg
 	 */
@@ -388,7 +439,8 @@ class Team
 
 	/**
 	 * Method compares max heart rate of each athlete in athletes[] array to the
-	 * average max heart rate and displays all athlete name(s) above average.
+	 * average max heart rate and displays all athlete name(s) above or equal to
+	 * average.
 	 * 
 	 * @param avg
 	 */
@@ -408,8 +460,9 @@ class Team
 	}
 
 	/**
-	 * Method uses for loop to find highest max heart rate in athletes[] array
-	 * and displays name of athlete with their max heart rate value.
+	 * Method uses for loop and index location to find highest max heart rate in
+	 * athletes[] array and displays name of that athlete with their max heart
+	 * rate value.
 	 */
 	public void displayHighestMHR()
 	{
@@ -423,8 +476,11 @@ class Team
 
 		for (int index = 0; index < athleteCount; index++)
 		{
+			// Initializing new variable to track highest value
 			int currentHeighest = athletes[index].calculateMaxHeartRate();
 
+			// max stores currentHeighest value until highest is found
+			// highestIndex saves index location of highest value
 			if (currentHeighest > max)
 			{
 				max = currentHeighest;
@@ -439,7 +495,8 @@ class Team
 
 	/**
 	 * Method uses for loop and an index for shortest and an index for tallest
-	 * to find the shortest and tallest athletes in athletes[] array, then
+	 * to find the shortest and tallest athletes in athletes[] array, stores the
+	 * highest and stores the lowest value and their index locations, then
 	 * displays shortest, and displays tallest.
 	 */
 	public void displaySmallestLargestHeight()
@@ -479,8 +536,8 @@ class Team
 	 * Method Writes output to a file named [team name].txt in same directory as
 	 * the java file. It then displays the location of the file. Writes in the
 	 * following format with each section on a new line: Team: [team name] Total
-	 * Athletes:[number of athletes] [Athlete name] BMI: [BMI to 2 decimal
-	 * places] Category: [BMI Category] MHR [MHR]
+	 * Athletes:[number of athletes] (Athlete name) [Athlete name] BMI: [BMI to
+	 * 2 decimal places] Category: [BMI Category] MHR [MHR]
 	 * 
 	 * @param fileName
 	 * @throws FileNotFoundException
@@ -494,12 +551,18 @@ class Team
 		fileWriter.printf(
 				"Team: " + teamName + "\nTotal Athletes: " + athleteCount);
 		fileWriter.println(); // added lines between team and athletes
-		// for file readability, delete to match acceptance cripteria exactly
+		// for file readability, delete to match acceptance criteria exactly
 
 		for (int index = 0; index < athleteCount; index++)
 		{
-			Athlete athlete = athletes[index];// allows athlete to be called
-			// within loop
+			// creating a local variable named
+			// athlete and assigning it the
+			// reference to the Athlete
+			// object located at the current
+			// index in the athletes array.
+			// used as a shortcut to call methods for each athlete below
+			Athlete athlete = athletes[index];
+
 			double bmi = athletes[index].calculateBMI();
 
 			fileWriter.printf("\n%s\nBMI: %.2f\nCategory: %s\nMHR: %d\n",
