@@ -37,7 +37,7 @@ public class Project02Trainer
 		{
 			System.out.println("\nTesting file: " + fileName);
 
-			Team team = new Team("Nuggets", 6);
+			Team team = new Team("Nuggets", 3);
 
 			teamSetUp(fileName, team);
 
@@ -49,7 +49,7 @@ public class Project02Trainer
 		}
 
 		// ===== TEST 2 =====
-		fileName = "team2.txt";// File has 5 athletes listed
+		// fileName = "team2.txt";// File has 5 athletes listed
 		// Updated fileName allows for second file to be written
 		// for a second team 'Team CS' below
 

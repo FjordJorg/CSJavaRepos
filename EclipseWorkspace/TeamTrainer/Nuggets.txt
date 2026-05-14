@@ -1,4 +1,4 @@
-Team: Team CS
+Team: Nuggets
 Total Athletes: 2
 
 Gordon
