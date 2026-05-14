@@ -29,7 +29,7 @@ public class Project02Trainer
 		displayProgramSummary();
 
 		// ===== TEST 1 =====
-		String fileName = "team1.txt"; // Can't find file anywhere,
+		String fileName = "team1.txt";
 		// assumed to be for grade/testing
 		// Initializes fileName to pass to teamSetUp below
 
